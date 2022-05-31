@@ -7,4 +7,6 @@ assignees: DylanGermann
 
 ---
 
-Descirption :
+Description :
+
+Estimated duration (in day) :
