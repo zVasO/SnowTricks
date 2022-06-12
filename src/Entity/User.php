@@ -22,67 +22,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     #[ORM\Column(type: 'string', length: 180)]
-    private $firstname;
-
-    #[ORM\Column(type: 'string', length: 180)]
-    private $lastname;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $profilePicture;
+    private $username;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
     private $password;
-
-    /**
-     * @return mixed
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProfilePicture()
-    {
-        return $this->profilePicture;
-    }
-
-    /**
-     * @param mixed $profilePicture
-     */
-    public function setProfilePicture($profilePicture): void
-    {
-        $this->profilePicture = $profilePicture;
-    }
-
-    /**
-     * @param mixed $firstname
-     */
-    public function setFirstname($firstname): void
-    {
-        $this->firstname = $firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param mixed $lastname
-     */
-    public function setLastname($lastname): void
-    {
-        $this->lastname = $lastname;
-    }
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Trick::class)]
     private $tricks;
@@ -114,13 +60,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void
+    {
+        $this->username = $username;
+    }
+
+
+    /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
