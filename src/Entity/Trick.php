@@ -38,6 +38,12 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private $User;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $CreatedAt;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $UpdatedAt;
+
     public function __construct()
     {
         $this->Picture = new ArrayCollection();
@@ -184,6 +190,30 @@ class Trick
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $UpdatedAt): self
+    {
+        $this->UpdatedAt = $UpdatedAt;
 
         return $this;
     }
