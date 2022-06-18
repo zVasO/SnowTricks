@@ -1,0 +1,30 @@
+@media (max-width: 991px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar {
+        order: 1;
+        position: fixed;
+        z-index: 10;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .navbar-nav, .navbar-brand, .navbar-toggler {
+        display: none;
+    }
+
+    .sm-navbar {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .sm-navbar {
+        display: none;
+    }
+}
