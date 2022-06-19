@@ -14,16 +14,16 @@
     <section class="page-content py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="tricks-list">
-                {% for i in 0..10 %}
+                {% for trick in tricks %}
                     <div class="trick-item col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                            <img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="trick-item-body text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
+                                    <h5 class="fw-bolder">{{ trick.name }}</h5>
                                     <i class="fa-solid fa-pencil"></i>
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
