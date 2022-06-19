@@ -1,3 +1,52 @@
+.trick-item-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background: url("../images/backgroud.jpg");
+    background-size: cover;
+}
+
+.header-text {
+    padding-top: 5%;
+}
+
+header h1, header h3 {
+    color: white;
+}
+
+header a .arrow {
+    position: absolute;
+    bottom: 7%;
+    right: 1%;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.arrow {
+    align-self: end;
+    margin-right: 10px;
+}
+
+.arrow-link {
+    width: 36px;
+    height: 100%;
+}
+
+ @media (max-width: 1920px) {
+     header {
+         background-position: 60% 0;
+     }
+ }
+
 @media (max-width: 991px) {
     body {
         display: flex;
@@ -26,5 +75,15 @@
 @media (min-width: 992px) {
     .sm-navbar {
         display: none;
+    }
+}
+
+@media (max-width: 555px) {
+    .trick-list {
+        display: flex;
+    }
+
+    .trick-item {
+        flex: 1 1 400px;
     }
 }
