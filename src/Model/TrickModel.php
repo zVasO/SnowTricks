@@ -1,9 +1,13 @@
 <?php
 
+namespace App\Model;
+
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
+use JetBrains\PhpStorm\Pure;
 
 class TrickModel
 {
@@ -17,9 +21,12 @@ class TrickModel
     public Category $category;
     public DateTimeImmutable $createdAt;
     public DateTimeImmutable $updatedAt;
-    public User $user;
+    public UserModel $user;
 
-    public function __construct(Trick $trickEntity)
+    /**
+     * @param Trick $trickEntity
+     */
+    #[Pure] public function __construct(Trick $trickEntity)
     {
         $this->id = $trickEntity->getId();
         $this->name = $trickEntity->getName();
@@ -30,6 +37,6 @@ class TrickModel
         $this->category = $trickEntity->getCategory();
         $this->createdAt = $trickEntity->getCreatedAt();
         $this->updatedAt = $trickEntity->getUpdatedAt();
-        $this->user = $trickEntity->getUser();
+        $this->user = new UserModel($trickEntity->getUser());
     }
 }
