@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Service;
+
+use App\Model\TrickModel;
+use JetBrains\PhpStorm\Pure;
+
 class TrickService
 {
 

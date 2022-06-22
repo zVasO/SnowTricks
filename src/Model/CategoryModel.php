@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\Pure;
 class CategoryModel
 {
 
-    public int $id;
+    public readonly int $id;
     public string $name;
     public Collection $tricks;
 
@@ -18,8 +18,8 @@ class CategoryModel
      */
     #[Pure] public function __construct(Category $categoryEntity)
     {
-        $this->id = $categoryEntity->getId();
-        $this->name = $categoryEntity->getName();
+        $this->id     = $categoryEntity->getId();
+        $this->name   = $categoryEntity->getName();
         $this->tricks = $categoryEntity->getTricks();
     }
 }
