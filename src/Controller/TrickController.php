@@ -8,10 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-    #[Route('/trick{id}', name: 'app_trick')]
+    #[Route('/trick/{id}', name: 'app_trick')]
     public function showTrick(int $id): Response
     {
-        dd($id);
         return $this->render('trick/index.html.twig', [
             'controller_name' => 'TrickController',
         ]);
