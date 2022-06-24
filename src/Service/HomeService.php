@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Service;
+
 use App\Repository\TrickRepository;
 
 class HomeService

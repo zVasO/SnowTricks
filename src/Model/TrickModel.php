@@ -4,15 +4,14 @@ namespace App\Model;
 
 use App\Entity\Category;
 use App\Entity\Trick;
-use App\Entity\User;
+use App\Service\ModelService;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class TrickModel
 {
 
-    public int $id;
+    public readonly int $id;
     public string $name;
     public Collection $message;
     public string $description;
@@ -26,17 +25,17 @@ class TrickModel
     /**
      * @param Trick $trickEntity
      */
-    #[Pure] public function __construct(Trick $trickEntity)
+    public function __construct(Trick $trickEntity)
     {
-        $this->id = $trickEntity->getId();
-        $this->name = $trickEntity->getName();
-        $this->message = $trickEntity->getMessage();
+        $this->id          = $trickEntity->getId();
+        $this->name        = $trickEntity->getName();
+        $this->message     = $trickEntity->getMessage();
         $this->description = $trickEntity->getDescription();
-        $this->video = $trickEntity->getVideo();
-        $this->picture = $trickEntity->getPicture();
-        $this->category = $trickEntity->getCategory();
-        $this->createdAt = $trickEntity->getCreatedAt();
-        $this->updatedAt = $trickEntity->getUpdatedAt();
-        $this->user = new UserModel($trickEntity->getUser());
+        $this->video       = $trickEntity->getVideo();
+        $this->picture     = $trickEntity->getPicture();
+        $this->category    = $trickEntity->getCategory();
+        $this->createdAt   = $trickEntity->getCreatedAt();
+        $this->updatedAt   = $trickEntity->getUpdatedAt();
+        $this->user        = new UserModel($trickEntity->getUser());
     }
 }

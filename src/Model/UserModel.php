@@ -2,19 +2,18 @@
 
 namespace App\Model;
 
-use App\Entity\Message;
-use App\Entity\Trick;
 use App\Entity\User;
+use App\Service\ModelService;
 use Doctrine\Common\Collections\Collection;
 
 class UserModel
 {
-    public int $id;
+    public readonly int $id;
     public string $email;
     public string $username;
-    public array $tricks;
-    public array $messages;
-    private array $roles = [];
+    public Collection $tricks;
+    public Collection $messages;
+    private array $roles;
     private string $password;
 
     /**
@@ -27,29 +26,7 @@ class UserModel
         $this->username = $userEntity->getUsername();
         $this->roles    = $userEntity->getRoles();
         $this->password = $userEntity->getPassword();
-        $this->initTricksArray($userEntity->getTricks());
-        $this->initMessagesArray($userEntity->getMessages());
-    }
-
-    /**
-     * @param Collection $messagesCollection
-     */
-    private function initMessagesArray(Collection $messagesCollection): void
-    {
-        $this->messages = [];
-        foreach ($messagesCollection as $messageEntity) {
-            $this->messages[] = new MessageModel($messageEntity);
-        }
-    }
-
-    /**
-     * @param Collection $tricksCollection
-     */
-    private function initTricksArray(Collection $tricksCollection): void
-    {
-        $this->tricks = [];
-        foreach ($tricksCollection as $trickEntity) {
-            $this->tricks[] = new TrickModel($trickEntity);
-        }
+        $this->tricks   = $userEntity->getTricks();
+        $this->messages = $userEntity->getMessages() ;
     }
 }
