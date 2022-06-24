@@ -18,12 +18,12 @@
                     <div class="trick-item col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/>
+                            <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="trick-item-body text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ trick.name }}</h5>
+                                    <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
                                     <i class="fa-solid fa-pencil"></i>
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
