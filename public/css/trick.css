@@ -38,15 +38,18 @@
      }
 }
 .trick-actions {
-    position: absolute;
     top: 20px;
     right: 20px;
+    font-size: x-large;
 }
 .trick-title {
-    position: absolute;
-    top: 50%;
+    top: 45%;
     width: 100%;
     text-align: center;
+}
+.trick-title, .trick-actions {
+    color: azure;
+    position: absolute;
 }
 .trick-img {
     position: relative;
