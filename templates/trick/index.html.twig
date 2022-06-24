@@ -1,11 +1,71 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello TrickController!{% endblock %}
-
+{% block stylesheets %} <link href="{{ asset('css/trick.css') }}" rel="stylesheet"/> {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="trick-img mt-5 d-flex justify-content-center flex-column">
+    <div class="container container-border container-trick p-0">
+        <div class="trick-img">
             <img src="https://st.depositphotos.com/2547675/3009/i/950/depositphotos_30094505-stock-photo-time-clock.jpg" alt="">
+            <h1 class="trick-title">Mon Trick</h1>
+            <div class="trick-actions">
+                <i class="fa-solid fa-pencil"></i>
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+        </div>
+        <div class="trick-body-content d-flex flex-column align-items-center mt-3">
+            <div class="trick-media" id="media">
+                <iframe width="275" height="200" src="https://www.youtube.com/embed/0qVQ7YWcIFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="275" height="200" src="https://www.youtube.com/embed/0qVQ7YWcIFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="275" height="200" src="https://www.youtube.com/embed/0qVQ7YWcIFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="275" height="200" src="https://www.youtube.com/embed/0qVQ7YWcIFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="275" height="200" src="https://www.youtube.com/embed/0qVQ7YWcIFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-media mt-2" onclick="showMedias()" id="btn-media">Voir les medias</button>
+            <div class="trick-description text-center mt-4 w-75">
+                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab deserunt hic placeat quibusdam repellat similique velit voluptate! Consectetur ducimus enim et explicabo inventore nam nulla quo vel. Ipsum, repudiandae, voluptates.</span><span>Assumenda consequatur fugit quam quidem vitae. Accusamus ad alias blanditiis culpa cumque delectus dolorem enim esse et magnam mollitia nesciunt numquam odio odit omnis quae rem, soluta veniam vero voluptate.</span></p>
+                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt omnis quibusdam soluta! Adipisci amet cupiditate delectus distinctio eius eos explicabo iste iusto qui, quisquam reiciendis repellendus rerum temporibus vero, voluptas?</span><span>Aliquam assumenda commodi nam nisi nostrum quia sint. Architecto beatae cum cupiditate hic illo itaque molestiae neque odio odit praesentium quibusdam quos rerum, sapiente, tempora voluptates! Alias cumque dolores sunt.</span></p>
+            </div>
+            <div class="trick-important-information d-flex flex-row gap-3 flex-wrap justify-content-center">
+                <button type="button" class="btn btn-outline-success">Groupe: Grid</button>
+                <button type="button" class="btn btn-outline-success">Crée le : 22/06/2021</button>
+                <button type="button" class="btn btn-outline-success">Modifié le : 244/06/2021</button>
+            </div>
+            <hr>
+            <div class="trick-form">
+                <form>
+                    <div class="d-flex flex-row gap-2">
+                        <input type="text" class="form-control" id="message">
+                        <button type="submit" class="btn btn-primary">Envoyer </button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="trick-comments-area mb-5 text-center">
+                <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
+                    <p class="trick-comment text-start" ><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur deleniti distinctio dolore doloremque, eius eos expedita fuga impedit magni </p>
+                </div>
+                <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
+                    <p class="trick-comment text-start" ><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur deleniti distinctio dolore doloremque, eius eos expedita fuga impedit magni </p>
+                </div>
+                <button type="submit" class="btn btn-primary">Charger plus de figures </button>
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    function showMedias() {
+        let btnElement = document.getElementById("btn-media");
+        let mediaElement = document.getElementById("media");
+        if (mediaElement.classList.contains("d-flex")) {
+            mediaElement.classList.remove("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+            btnElement.innerText = "Voir les medias";
+        } else {
+            mediaElement.classList.add("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+            btnElement.innerText = "Cacher les media";
+        }
+    }
+</script>
 {% endblock %}
