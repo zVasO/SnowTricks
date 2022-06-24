@@ -2,42 +2,38 @@
 
 namespace App\Service;
 
+use App\Exception\TrickException;
 use App\Model\TrickModel;
 use App\Repository\TrickRepository;
+use App\Service\Factory\TrickFactory;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Response;
 
-class TrickService
+class TrickService implements ITrickService
 {
 
-    public function __construct()
+    public function __construct(private TrickRepository $trickRepository, private TrickFactory $trickFactory)
     {
     }
 
     /**
-     * @throws Exception
+     * @inheritDoc
      */
-    public static function getTrickById(int $id, TrickRepository $trickRepository): TrickModel
+    public function getTrickById(int $id): TrickModel
     {
-
-        $trickEntity = $trickRepository->find($id);
+        $trickEntity = $this->trickRepository->find($id);
         if (empty($trickEntity)) {
-            throw new Exception("Le trick ayant pour id $id n'existe pas !!", Response::HTTP_NO_CONTENT);
+            throw new TrickException("Le trick ayant pour id $id n'existe pas !!", Response::HTTP_NO_CONTENT);
         }
         return new TrickModel($trickEntity);
     }
 
     /**
-     * @param array $tricksEntities
-     * @return array
+     * @inheritDoc
      */
-    public static function convertTricksEntitiesToTricksModels(array $tricksEntities): array
+    public function getAllTricks(): array
     {
-        $tricksModels = [];
-        foreach ($tricksEntities as $trickEntity) {
-            $tricksModels[] = new TrickModel($trickEntity);
-        }
-        return $tricksModels;
+        $allTricksEntities = $this->trickRepository->findAll();
+        return $this->trickFactory->convertTricksEntitiesToTricksModels($allTricksEntities);
     }
 }
