@@ -20,6 +20,7 @@ class TrickController extends AbstractController
         $trick = TrickService::getTrickById($id, $trickRepository);
         return $this->render('trick/index.html.twig', [
             'controller_name' => 'TrickController',
+            'trick' => $trick
         ]);
     }
 }
