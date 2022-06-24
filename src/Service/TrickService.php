@@ -15,7 +15,10 @@ class TrickService
     {
     }
 
-    public static function getTrickById(int $id, TrickRepository $trickRepository)
+    /**
+     * @throws Exception
+     */
+    public static function getTrickById(int $id, TrickRepository $trickRepository): TrickModel
     {
 
         $trickEntity = $trickRepository->find($id);
