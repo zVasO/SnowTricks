@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Model\TrickModel;
-use App\Repository\TrickRepository;
 use Exception;
 
 interface ITrickService

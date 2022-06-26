@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,6 +39,17 @@ class TrickRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function updateTrickById(int $id, string $description, Category $category)
+    {
+        $trickEntity = $this->find($id);
+        if (!empty($trickEntity)) {
+            $trickEntity->setDescription($description);
+            $trickEntity->setCategory($category);
+            $this->getEntityManager()->flush();
+        }
+    }
+
 
 //    /**
 //     * @return Trick[] Returns an array of Trick objects
