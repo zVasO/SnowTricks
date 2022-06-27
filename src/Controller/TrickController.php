@@ -38,6 +38,7 @@ class TrickController extends AbstractController
     public function editTrick(int $id): Response
     {
         $trick = $this->trickService->getTrickById($id);
+        $categories = $this->categoryService->
         return $this->render('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
             'trick' => $trick

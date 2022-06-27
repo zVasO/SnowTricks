@@ -39,4 +39,6 @@ class CategoryService implements ICategoryService
         return $trickEntity;
     }
 
+    public function getAll
+
 }
