@@ -38,10 +38,11 @@ class TrickController extends AbstractController
     public function editTrick(int $id): Response
     {
         $trick = $this->trickService->getTrickById($id);
-        $categories = $this->categoryService->
+        $categories = $this->categoryService->getAllTricks();
         return $this->render('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
-            'trick' => $trick
+            'trick' => $trick,
+            'categories' => $categories
         ]);
     }
 
@@ -53,10 +54,9 @@ class TrickController extends AbstractController
     {
         //We make sure all fields are filled
         ParameterVerificationService::verifyTrickEditArray($request->request->all());
-
+        dd($request->request->all());
         //We get the category
         $categoryEntity = $this->categoryService->getCategoryEntityById($request->request->get('category'));
-
         //we update our trick
         $this->trickService->updateTrickById($id, $request->request->get('trick-description'), $categoryEntity);
 
