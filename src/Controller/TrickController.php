@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\CategoryService;
+use App\Service\MediaService;
 use App\Service\ParameterVerificationService;
 use App\Service\TrickService;
 use Exception;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
-    public function __construct(private TrickService $trickService, private CategoryService $categoryService)
+    public function __construct(private TrickService $trickService, private CategoryService $categoryService, private MediaService $mediaService)
     {
     }
 
@@ -54,9 +55,12 @@ class TrickController extends AbstractController
     {
         //We make sure all fields are filled
         ParameterVerificationService::verifyTrickEditArray($request->request->all());
-        dd($request->request->all());
+        ParameterVerificationService::verifyMedia($request->request->all());
+
         //We get the category
         $categoryEntity = $this->categoryService->getCategoryEntityById($request->request->get('category'));
+        //We udpate the selected media
+        $this->mediaService->updateMediaEntity($request->request->get("media-id"),$request->request->get("url-media"));
         //we update our trick
         $this->trickService->updateTrickById($id, $request->request->get('trick-description'), $categoryEntity);
 
