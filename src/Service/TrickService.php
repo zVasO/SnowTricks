@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Exception\TrickException;
 use App\Model\TrickModel;
 use App\Repository\TrickRepository;
@@ -35,5 +36,10 @@ class TrickService implements ITrickService
     {
         $allTricksEntities = $this->trickRepository->findAll();
         return $this->trickFactory->convertTricksEntitiesToTricksModels($allTricksEntities);
+    }
+
+    public function updateTrickById(int $id, string $description, Category $category)
+    {
+        $this->trickRepository->updateTrickById($id, $description, $category);
     }
 }

@@ -39,6 +39,17 @@ class VideoRepository extends ServiceEntityRepository
         }
     }
 
+    public function updateVideoById(int $id, string $url)
+    {
+        $videoEntity = $this->find($id);
+        if (!is_null($videoEntity)) {
+            $videoEntity->setLink($url);
+            $this->getEntityManager()->persist($videoEntity);
+            return true;
+        }
+        return false;
+    }
+
 //    /**
 //     * @return Video[] Returns an array of Video objects
 //     */
