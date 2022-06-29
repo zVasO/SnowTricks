@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Trick
 {
     #[ORM\Id]
@@ -49,6 +50,13 @@ class Trick
         $this->Picture = new ArrayCollection();
         $this->Video = new ArrayCollection();
         $this->Message = new ArrayCollection();
+    }
+
+    #[ORM\PreFlush]
+    #[ORM\PreUpdate]
+    public function setCreatedAtValue(): void
+    {
+        $this->UpdatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
