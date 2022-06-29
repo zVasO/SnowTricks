@@ -15,8 +15,9 @@ class MediaService
     {
     }
 
-    public function updateMediaEntity(string $media, string $url): bool
+    public function updateMediaEntity(?string $media, ?string $url): bool
     {
+        if (empty($media) || empty($url)) return true;
         $mediaArray = explode(":", $media);
         return match ($mediaArray[0]) {
             "picture" => $this->pictureRepository->updatePictureById($mediaArray[1], $url),
