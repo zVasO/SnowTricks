@@ -13,7 +13,7 @@ class ParameterVerificationService
 
     public static function verifyTrickEditArray(array $trick): bool
     {
-        if (empty($trick['trick-description']) && empty($trick['category']) && empty($trick['trick-btn-save']) && $trick['trick-btn-save'] === 'save') {
+        if (!empty($trick['trick-description']) && !empty($trick['category']) && !empty($trick['trick-btn-save']) && $trick['trick-btn-save'] === 'save') {
             return true;
         }
         throw new Exception('Invalid parameters');

@@ -39,6 +39,17 @@ class PictureRepository extends ServiceEntityRepository
         }
     }
 
+    public function updatePictureById(int $id, string $link)
+    {
+        $pictureEntity = $this->find($id);
+        if (!is_null($pictureEntity)) {
+            $pictureEntity->setLink($link);
+            $this->getEntityManager()->persist($pictureEntity);
+            return true;
+        }
+        return false;
+    }
+
 //    /**
 //     * @return Picture[] Returns an array of Picture objects
 //     */
