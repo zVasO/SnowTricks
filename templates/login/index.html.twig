@@ -10,7 +10,7 @@
     {% endif %}
     <h1 class="text-center">Inscription</h1>
     <div class="container mt-5 d-flex justify-content-center">
-        <div class="logForm">
+        <div class="logForm w-50">
             <form action="{{ path('app_login') }}" method="post" class="d-flex flex-column">
                 <div class="id d-flex flex-column">
                     <label for="username">Email:</label>
@@ -23,7 +23,6 @@
                </div>
                 <br>
                 <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/>
-
                 <button type="submit" class="btn btn-outline-success">S'authentifier</button>
             </form>
         </div>
