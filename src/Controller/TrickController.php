@@ -30,13 +30,28 @@ class TrickController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
     /**
+     * @param Request $request
      * @return Response
+     * @throws \App\Exception\TrickException
      */
     #[Route('/trick/create/', name: 'trick_create2', methods: ['POST'])]
     public function createTrick(Request $request): Response
     {
-        dd($request);
+        $trickInformations = $request->request->all('create_trick_form');
+
+        //we get the Category entity
+        $categoryEntity = $this->categoryService->getCategoryEntityById($trickInformations["category"]);
+
+        //we get the current user
+        $user = $this->getUser();
+
+        //we create the trick
+        $trickEntity = $this->trickService->createTrick($trickInformations, $categoryEntity, $user);
+        //we added the media
+        $this->mediaService->addedNewMedia($trickEntity, $request);
+        return $this->redirectToRoute('trick_detail', array('id' => $trickEntity->getId()));
     }
 
     /**

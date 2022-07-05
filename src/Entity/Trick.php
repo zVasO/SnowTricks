@@ -54,8 +54,15 @@ class Trick
 
     #[ORM\PreFlush]
     #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->UpdatedAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
+        $this->CreatedAt = new \DateTimeImmutable();
         $this->UpdatedAt = new \DateTimeImmutable();
     }
 
