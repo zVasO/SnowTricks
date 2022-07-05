@@ -40,10 +40,27 @@ class CategoryService implements ICategoryService
         return $trickEntity;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getAllTricks(): array
     {
         $allCategoriesEntities = $this->categoryRepository->findAll();
         return $this->categoryFactory->convertCategoriesEntitiesToCategoriesModels($allCategoriesEntities);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getArrayOfCategoryForFormType(): array
+    {
+        $allCategoriesEntities = $this->categoryRepository->findAll();
+        $arrayOfCategories = [];
+        foreach ($allCategoriesEntities as $key => $category) {
+            $arrayOfCategories[$category->getName()] = $category->getId();
+        }
+        return $arrayOfCategories;
     }
 
 }

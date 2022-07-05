@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrickController!{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/trick.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/editTrick.css') }}" rel="stylesheet"/>
+
+{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        {{ form_start(form) }}
+        {{form_row(form.name)}}
+        {{form_row(form.description)}}
+        {{form_row(form.category)}}
+        <div class="picture-container">
+            {{form_row(form.picture)}}
+            <div class="picture-slots" id="picture-slots">
+
+            </div>
+            <input class="d-none" type="text" id="picture-count" name="picture-count">
+            <button type="button" class="btn btn-primary mt-3" onclick="addOneMoreElement('picture-slots', 'delete-picture-btn', 'picture')">Ajouter un emplacement</button>
+            <button type="button" class="btn btn-danger mt-3" onclick="deleteLastElement('picture-slots', 'delete-picture-btn', 'picture')" hidden id="delete-picture-btn">Supprimer un emplacement</button>
+        </div>
+        <div class="video-container">
+            {{form_row(form.video)}}
+            <div class="picture-slots" id="video-slots">
+
+            </div>
+            <input class="d-none" type="text" id="video-count" name="picture-count">
+            <button type="button" class="btn btn-primary mt-3" onclick="addOneMoreElement('video-slots', 'delete-video-btn', 'video')">Ajouter un emplacement</button>
+            <button type="button" class="btn btn-danger mt-3" hidden id="delete-video-btn" onclick="deleteLastElement('video-slots', 'delete-video-btn', 'video')">Supprimer un emplacement</button>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Ajouter</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function addOneMoreElement(slotId, deleteId, type)
+        {
+            let pictureSlotsElement = document.getElementById(slotId);
+            let pictureElement = document.createElement('input');
+            let deleteBtnElement = document.getElementById(deleteId);
+            deleteBtnElement.hidden = false;
+
+            pictureElement.setAttribute('type', 'url');
+            pictureElement.setAttribute('required', 'required');
+            pictureElement.name = type+pictureSlotsElement.childElementCount;
+
+            pictureElement.classList.add("form-control", "mt-3");
+
+            pictureSlotsElement.appendChild(pictureElement);
+            let countElement = document.getElementById(type+"-count");
+            countElement.value = pictureSlotsElement.childElementCount;
+
+        }
+        function deleteLastElement(slotId, deleteId, type)
+        {
+            let pictureSlotsElement = document.getElementById(slotId);
+            let lastElement = pictureSlotsElement.lastChild;
+            let deleteBtnElement = document.getElementById(deleteId);
+
+            pictureSlotsElement.removeChild(lastElement);
+            if (pictureSlotsElement.childElementCount === 0) {
+                deleteBtnElement.hidden = true;
+            }
+            let countElement = document.getElementById(type+"-count");
+            countElement.value = pictureSlotsElement.childElementCount;
+        }
+    </script>
+{% endblock %}
+
