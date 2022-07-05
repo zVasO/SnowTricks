@@ -23,4 +23,14 @@ interface ICategoryService
      * @throws TrickException
      */
     public function getCategoryEntityById(int $id): Category;
+
+    /**
+     * @return array
+     */
+    public function getAllTricks(): array;
+
+    /**
+     * @return array
+     */
+    public function getArrayOfCategoryForFormType(): array;
 }
