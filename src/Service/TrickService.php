@@ -65,4 +65,11 @@ class TrickService implements ITrickService
         $this->mediaService->addedNewMedia($trickEntity, $additionalMedia, $trickForm);
         return $trickEntity->getId();
     }
+
+    public function deleteTrick(int $id)
+    {
+        $trickEntity = $this->trickRepository->find($id);
+        if ($trickEntity) $this->trickRepository->remove($trickEntity, true);
+        //todo: afficher une confirmation de suppression
+    }
 }

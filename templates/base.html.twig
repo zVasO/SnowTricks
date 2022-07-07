@@ -34,5 +34,13 @@
         <script src="https://kit.fontawesome.com/f1f88b58cd.js" crossorigin="anonymous"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('js/scripts.js') }}"></script>
+        <script>
+            function deleteTrick(id, name) {
+                let choice = confirm("Voulez vous supprimer le trick :"+ name+ " ?");
+                if (choice){
+                    window.location.href = "/trick/delete/"+id;
+                }
+            }
+        </script>
     </body>
 </html>

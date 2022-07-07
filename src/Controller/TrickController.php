@@ -126,4 +126,15 @@ class TrickController extends AbstractController
             'categories' => $categories
         ]);
     }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/trick/delete/{id}', name: 'trick_delete', methods: ['GET'])]
+    public function deleteTrick(int $id): Response
+    {
+        $this->trickService->deleteTrick($id);
+        return $this->redirectToRoute('app_home');
+    }
+
 }
