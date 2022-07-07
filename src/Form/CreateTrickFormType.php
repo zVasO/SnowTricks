@@ -2,20 +2,19 @@
 
 namespace App\Form;
 
-use App\Service\CategoryService;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 
 
 class CreateTrickFormType extends AbstractType
 {
 
 
-    public function __construct(private CategoryService $categoryService)
+    public function __construct()
     {
     }
 
@@ -30,10 +29,11 @@ class CreateTrickFormType extends AbstractType
                 'label' => 'Description :',
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('category', ChoiceType::class, [
+            ->add('category', EntityType::class, [
                 'label' => 'Categorie :',
                 'attr' => ['class' => 'form-control'],
-                'choices' => $this->categoryService->getArrayOfCategoryForFormType()
+                'class' => Category::class,
+                'choice_label' => 'Name'
             ])
             ->add('video', UrlType::class, [
                 'label' => 'Lien embed de la vidéo :',
@@ -42,7 +42,6 @@ class CreateTrickFormType extends AbstractType
             ->add('picture', UrlType::class, [
                 'label' => 'Lien de la photo :',
                 'attr' => ['class' => 'form-control'],
-            ])
-        ;
+            ]);
     }
 }

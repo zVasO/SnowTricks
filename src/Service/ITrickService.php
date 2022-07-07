@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Model\TrickModel;
 use Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 interface ITrickService
 {
@@ -31,10 +32,11 @@ interface ITrickService
     public function updateTrickById(int $id, string $description, Category $category);
 
     /**
-     * @param array $trickInformations
+     * @param array $trickForm
      * @param Category $category
      * @param User $user
-     * @return Trick
+     * @param array $additionalMedia
+     * @return int Trick identifier created
      */
-    public function createTrick(array $trickInformations, Category $category, User $user): Trick;
+    public function createTrick(array $trickForm, Category $category, User $user, array $additionalMedia): int;
 }

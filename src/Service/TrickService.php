@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TrickService implements ITrickService
 {
 
-    public function __construct(private TrickRepository $trickRepository, private TrickFactory $trickFactory)
+    public function __construct(private TrickRepository $trickRepository, private TrickFactory $trickFactory, private MediaService $mediaService)
     {
     }
 
@@ -53,15 +53,16 @@ class TrickService implements ITrickService
     /**
      * @inheritDoc
      */
-    public function createTrick(array $trickInformations, Category $category, User $user): Trick
+    public function createTrick(array $trickForm, Category $category, User $user, array $additionalMedia): int
     {
         $trickEntity = new Trick();
-        $trickEntity->setName($trickInformations["name"])
+        $trickEntity->setName($trickForm["name"])
             ->setCategory($category)
-            ->setDescription($trickInformations["description"])
+            ->setDescription($trickForm["description"])
             ->setUser($user);
 
         $this->trickRepository->add($trickEntity, true);
-        return $trickEntity;
+        $this->mediaService->addedNewMedia($trickEntity, $additionalMedia, $trickForm);
+        return $trickEntity->getId();
     }
 }

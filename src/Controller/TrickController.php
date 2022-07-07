@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Exception\TrickException;
 use App\Form\CreateTrickFormType;
 use App\Service\CategoryService;
 use App\Service\MediaService;
@@ -12,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class TrickController extends AbstractController
 {
@@ -26,32 +29,54 @@ class TrickController extends AbstractController
     public function createPageTrick(): Response
     {
         $form = $this->createForm(CreateTrickFormType::class);
-        return $this->render('trick/create.html.twig', [
-            'form' => $form->createView()
+        return $this->renderForm('trick/create.html.twig', [
+            'form' => $form
         ]);
     }
 
     /**
      * @param Request $request
      * @return Response
-     * @throws \App\Exception\TrickException
+     * @throws TrickException
+     * @throws Exception
      */
     #[Route('/trick/create/', name: 'trick_create2', methods: ['POST'])]
     public function createTrick(Request $request): Response
     {
-        $trickInformations = $request->request->all('create_trick_form');
+        $trickForm = $request->request->all('create_trick_form');
+
+        $additionalMedia = [
+            'picture' => [],
+            'video' => [],
+        ];
+        //we make a loop for all optionnal picture
+        if (!empty($request->request->get('picture-count'))) {
+            for ($i = 0 ; $i < $request->request->get('picture-count') ; $i++) {
+                //todo verifier si c'est bien un string et url si ca existe
+                $additionalMedia['picture'][] = $request->request->get('picture'.$i);
+            }
+        }
+
+        //we make a loop for all optionnal picture
+        if (!empty($request->request->get('video-count'))) {
+            for ($i = 0 ; $i < $request->request->get('video-count') ; $i++) {
+                //todo verifier si c'est bien un string et url si ca existe
+                $additionalMedia['video'][] = $request->request->get('video'.$i);
+            }
+        }
 
         //we get the Category entity
-        $categoryEntity = $this->categoryService->getCategoryEntityById($trickInformations["category"]);
+        $categoryEntity = $this->categoryService->getCategoryEntityById($trickForm["category"]);
 
         //we get the current user
+        /** @var $user User */
         $user = $this->getUser();
+        if (empty($user)) throw new AuthenticationException("Veuillez vous connecter pour ajouter un trick !");
 
         //we create the trick
-        $trickEntity = $this->trickService->createTrick($trickInformations, $categoryEntity, $user);
+        $trickId = $this->trickService->createTrick($trickForm, $categoryEntity, $user, $additionalMedia);
         //we added the media
-        $this->mediaService->addedNewMedia($trickEntity, $request);
-        return $this->redirectToRoute('trick_detail', array('id' => $trickEntity->getId()));
+        return $this->redirectToRoute('trick_detail', array('id' => $trickId));
     }
 
     /**
