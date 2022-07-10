@@ -13,8 +13,11 @@
                 <img src="{{ trick.picture[0].Link }}" alt="">
                 <h1 class="trick-title">{{ trick.name }}</h1>
                 <div class="trick-actions">
-                    <i class="fa-solid fa-pencil"></i>
-                    <i class="fa-solid fa-trash-can"></i>
+                    <div class="media-actions align-self-end">
+                        <input type="radio" id="media-picture-{{ trick.picture[0].id }}" name="media-id" value="picture:{{ trick.picture[0].id }}" class="d-none">
+                        <label for="media-picture-{{ trick.picture[0].id }}"><i class="fa-solid fa-pencil"></i></label>
+                        <i class="fa-solid fa-trash-can" onclick="deletePicture({{ trick.picture[0].id }})"></i>
+                    </div>
                 </div>
             </div>
             <div class="trick-body-content d-flex flex-column align-items-center mt-3">
@@ -26,7 +29,7 @@
                             <div class="media-actions align-self-end">
                                 <input type="radio" id="media-picture-{{ picture.id }}" name="media-id" value="picture:{{ picture.id }}" class="d-none">
                                 <label for="media-picture-{{ picture.id }}"><i class="fa-solid fa-pencil"></i></label>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <i class="fa-solid fa-trash-can" onclick="deletePicture({{ picture.id }})"></i>
                             </div>
                         </div>
                     {% endfor %}
@@ -39,7 +42,7 @@
                             <div class="media-actions align-self-end">
                                 <input type="radio" id="media-video-{{ video.id }}" name="media-id" value="video:{{ video.id }}" class="d-none">
                                 <label for="media-video-{{ video.id }}"><i class="fa-solid fa-pencil"></i></label>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <i class="fa-solid fa-trash-can" onclick="deleteVideo({{ video.id }})"></i>
                             </div>
                         </div>
                     {% endfor %}
@@ -90,6 +93,18 @@
             } else {
                 mediaElement.classList.add("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
                 btnElement.innerText = "Cacher les medias";
+            }
+        }
+        function deletePicture(id) {
+            let choice = confirm("Voulez vous supprimer cette photo ?");
+            if (choice){
+                window.location.href = "/picture/delete/"+id;
+            }
+        }
+        function deleteVideo(id) {
+            let choice = confirm("Voulez vous supprimer cette vidéo ?");
+            if (choice){
+                window.location.href = "/video/delete/"+id;
             }
         }
     </script>

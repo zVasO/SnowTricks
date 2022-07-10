@@ -133,7 +133,9 @@ class TrickController extends AbstractController
     #[Route('/trick/delete/{id}', name: 'trick_delete', methods: ['GET'])]
     public function deleteTrick(int $id): Response
     {
-        $this->trickService->deleteTrick($id);
+        $message = $this->trickService->deleteTrick($id);
+        if ($message) $this->addFlash($message["message-type"], $message["message-content"]);
+        if ($message) $this->addFlash($message["message-type"], $message["message-content"]);
         return $this->redirectToRoute('app_home');
     }
 

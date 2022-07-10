@@ -66,10 +66,15 @@ class TrickService implements ITrickService
         return $trickEntity->getId();
     }
 
-    public function deleteTrick(int $id)
+    /**
+     * @inheritDoc
+     */
+    public function deleteTrick(int $id): array
     {
         $trickEntity = $this->trickRepository->find($id);
         if ($trickEntity) $this->trickRepository->remove($trickEntity, true);
-        //todo: afficher une confirmation de suppression
+        return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été supprimé !");
     }
+
+
 }

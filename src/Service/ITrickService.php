@@ -39,4 +39,10 @@ interface ITrickService
      * @return int Trick identifier created
      */
     public function createTrick(array $trickForm, Category $category, User $user, array $additionalMedia): int;
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function deleteTrick(int $id): array;
 }

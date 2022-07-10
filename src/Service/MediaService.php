@@ -55,4 +55,33 @@ class MediaService
         }
 
     }
+    public function deleteMedia(string $typeMedia, int $idMedia)
+    {
+
+        //we make sure its not the last media of the category, because its impossible to have 0 picture or 0 video
+        if ($typeMedia === "picture") {
+            $pictureEntity = $this->pictureRepository->find($idMedia);
+            if ($pictureEntity) {
+                $trickEntity = $pictureEntity->getTrick();
+                if (count($trickEntity->getPicture()) > 1) {
+                    $this->pictureRepository->remove($pictureEntity, true);
+                    return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "La photo à bien été supprimé !");
+                }
+                return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_DANGER, "/!\ Impossible de supprimer cette photo, car la figure doit posséder au minimum une photo !");
+            }
+            return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_WARNING, "/!\ Cette image n'existe pas, ou a déja été supprimé !");
+        } elseif ($typeMedia === "video") {
+            $videoEntity = $this->videoRepository->find($idMedia);
+            if ($videoEntity) {
+                $trickEntity = $videoEntity->getTrick();
+                if (count($trickEntity->getPicture()) > 1) {
+                    $this->videoRepository->remove($videoEntity, true);
+                    return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "La vidéo a bien été supprimé !");
+                }
+                return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_DANGER, "Impossible de supprimer cette vidéo, car la figure doit posséder au minimum une vidéo !");
+            }
+            return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_WARNING, "/!\ Cette vidéo n'existe pas, ou a déja été supprimé !");
+        }
+    }
 }
+
