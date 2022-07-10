@@ -26,7 +26,17 @@
     <body class="d-flex flex-column justify-content-between vh-100">
     <div class="main">
         {% include 'header.html.twig' %}
-        {% block body %}{% endblock %}
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}
+
+        {% endblock %}
     </div>
         {% include 'footer.html.twig' %}
         <!-- Bootstrap core JS-->
@@ -34,5 +44,13 @@
         <script src="https://kit.fontawesome.com/f1f88b58cd.js" crossorigin="anonymous"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('js/scripts.js') }}"></script>
+        <script>
+            function deleteTrick(id, name) {
+                let choice = confirm("Voulez vous supprimer le trick :"+ name+ " ?");
+                if (choice){
+                    window.location.href = "/trick/delete/"+id;
+                }
+            }
+        </script>
     </body>
 </html>

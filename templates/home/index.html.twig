@@ -3,7 +3,7 @@
 {% block title %}SnowTricks - Accueil{% endblock %}
 {% block body %}
     <!-- Header-->
-    <header class="header">
+    <header class="header" id="header-top">
        <div class="header-text">
            <h1>SnowTricks</h1>
            <h3>Le snowboard pour tout le monde</h3>
@@ -21,11 +21,11 @@
                             <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
-                                <div class="trick-item-body text-center">
+                                <div class="trick-item-body text-center" id="trick-{{ trick.id }}">
                                     <!-- Product name-->
-                                    <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
-                                    <i class="fa-solid fa-pencil"></i>
-                                    <i class="fa-solid fa-trash-can"></i>
+                                    <a href="{{ path('trick_detail', { 'id': trick.id }) }}" class="text-decoration-none"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
+                                    <a href="{{ path('trick_edit', { 'id': trick.id }) }}" class="text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
+                                    <a href="#trick-{{ trick.id }}" class="text-decoration-none" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')"><i class="fa-solid fa-trash-can"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -33,6 +33,6 @@
                 {% endfor %}
             </div>
         </div>
-        <a class="arrow" href="#tricks-list"><i class="arrow fa-solid fa-arrow-up fa-3x text-dark"></i></a>
+        <a class="arrow" href="#header-top"><i class="arrow fa-solid fa-arrow-up fa-3x text-dark"></i></a>
     </section>
 {% endblock %}
