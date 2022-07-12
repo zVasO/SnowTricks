@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,4 +46,18 @@ interface ITrickService
      * @return array
      */
     public function deleteTrick(int $id): array;
+
+    /**
+     * @param Trick $trick
+     * @param User $user
+     * @return array
+     */
+    public function addTrick(Trick $trick, User $user): array;
+
+    /**
+     * @param TrickEntityModel $trickEntityModel
+     * @param User $user
+     * @return array
+     */
+    public function createTrickEntityFromEntityModel(TrickEntityModel $trickEntityModel, User $user): array;
 }

@@ -55,6 +55,12 @@ class MediaService
         }
 
     }
+
+    /**
+     * @param string $typeMedia
+     * @param int $idMedia
+     * @return string[]|void
+     */
     public function deleteMedia(string $typeMedia, int $idMedia)
     {
 
@@ -82,6 +88,16 @@ class MediaService
             }
             return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_WARNING, "/!\ Cette vidéo n'existe pas, ou a déja été supprimé !");
         }
+    }
+
+    public function addPictureEntity(Picture $picture)
+    {
+        $this->pictureRepository->add($picture, true);
+    }
+
+    public function addVideoEntity(Video $video)
+    {
+        $this->videoRepository->add($video, true);
     }
 }
 

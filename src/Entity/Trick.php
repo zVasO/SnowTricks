@@ -22,10 +22,10 @@ class Trick
     #[ORM\Column(type: 'text')]
     private $Description;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Picture::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Picture::class, fetch: "LAZY", orphanRemoval: true)]
     private $Picture;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, fetch: "LAZY", orphanRemoval: true)]
     private $Video;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
