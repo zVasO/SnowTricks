@@ -7,11 +7,15 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Exception\TrickException;
+use App\Form\CommentType;
 use App\Form\TrickFormType;
+use App\Model\MessageEntityModel;
+use App\Model\MessageModel;
 use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use App\Service\CategoryService;
 use App\Service\MediaService;
+use App\Service\MessageService;
 use App\Service\ParameterVerificationService;
 use App\Service\TrickService;
 use DateTimeImmutable;
@@ -28,7 +32,7 @@ use Webmozart\Assert\Assert;
 
 class TrickController extends AbstractController
 {
-    public function __construct(private TrickService $trickService, private CategoryService $categoryService, private MediaService $mediaService)
+    public function __construct(private TrickService $trickService, private CategoryService $categoryService, private MediaService $mediaService, private MessageService $messageService)
     {
     }
 
@@ -68,14 +72,30 @@ class TrickController extends AbstractController
      * @throws Exception
      */
     #[Route('/trick/{id}/', name: 'trick_detail')]
-    public function showTrick(int $id): Response
+    public function showTrick(int $id, Request $request): Response
     {
         Assert::integer($id);
 
+        $comment = new MessageEntityModel();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var $user User */
+            $user = $this->getUser();
+            if (empty($user)) throw new AuthenticationException("Veuillez vous connecter pour ajouter un trick !");
+            $trick = $this->trickService->getTrickEntityById($id);
+            $comment = $form->getData();
+            $this->messageService->addMessageFromMessageEntityModel($comment, $user, $trick);
+
+        }
+
         $trick = $this->trickService->getTrickById($id);
-        return $this->render('trick/index.html.twig', [
+        return $this->renderForm('trick/index.html.twig', [
             'controller_name' => 'TrickController',
-            'trick' => $trick
+            'trick' => $trick,
+            'form' => $form
         ]);
     }
 
