@@ -119,5 +119,17 @@ class TrickService implements ITrickService
             ];
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTrickEntityById(int $id): Trick
+    {
+        $trickEntity = $this->trickRepository->find($id);
+        if (empty($trickEntity)) {
+            throw new TrickException("Le trick ayant pour id $id n'existe pas !!", Response::HTTP_NO_CONTENT);
+        }
+        return $trickEntity;
+    }
+
 
 }

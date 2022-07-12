@@ -32,12 +32,12 @@
             </div>
             <hr>
             <div class="trick-form">
-                <form>
-                    <div class="d-flex flex-row gap-2">
-                        <input type="text" class="form-control" id="message" placeholder="Votre commentaire ici !">
-                        <button type="submit" class="btn btn-primary">Envoyer </button>
-                    </div>
-                </form>
+                <div class="d-flex gap-3 w-100">
+                    {{ form_start(form) }}
+                    {{ form_widget(form.Content) }}
+                    {{ form_row(form.submit, { 'label': 'Laisser un commentaire'}) }}
+                    {{ form_end(form) }}
+                </div>
             </div>
             <hr>
             <div class="trick-comments-area mb-5 text-center">

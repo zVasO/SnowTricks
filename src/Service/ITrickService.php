@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Exception\TrickException;
 use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use Exception;
@@ -60,4 +61,11 @@ interface ITrickService
      * @return array
      */
     public function createTrickEntityFromEntityModel(TrickEntityModel $trickEntityModel, User $user): array;
+
+    /**
+     * @param int $id
+     * @return Trick
+     * @throws TrickException
+     */
+    public function getTrickEntityById(int $id): Trick;
 }
