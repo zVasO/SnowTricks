@@ -3,9 +3,12 @@
 namespace App\Service;
 
 use App\Entity\Category;
+use App\Entity\Picture;
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Entity\Video;
 use App\Exception\TrickException;
+use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use App\Repository\TrickRepository;
 use App\Service\Factory\TrickFactory;
@@ -13,6 +16,7 @@ use Exception;
 use Monolog\DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Webmozart\Assert\Assert;
 
 class TrickService implements ITrickService
 {
@@ -74,6 +78,45 @@ class TrickService implements ITrickService
         $trickEntity = $this->trickRepository->find($id);
         if ($trickEntity) $this->trickRepository->remove($trickEntity, true);
         return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été supprimé !");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addTrick(Trick $trick, User $user): array
+    {
+        $trick->setUser($user);
+        $this->trickRepository->add($trick, true);
+        return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été ajouté !");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createTrickEntityFromEntityModel(TrickEntityModel $trickEntityModel, User $user): array
+    {
+
+        $trickEntity = new Trick();
+        $trickEntity->setUser($user)
+            ->setName($trickEntityModel->name)
+            ->setCategory($trickEntityModel->category)
+            ->setDescription($trickEntityModel->description);
+
+        foreach ($trickEntityModel->picture as $key => $picture) {
+            $pictureEntity = (new Picture())->setLink($picture)->setTrick($trickEntity);
+            $trickEntity->addPicture($pictureEntity);
+            $this->mediaService->addPictureEntity($pictureEntity);
+        }
+        foreach ($trickEntityModel->video as $key => $video) {
+            $videoEntity = (new Video())->setLink($video)->setTrick($trickEntity);
+            $trickEntity->addVideo($videoEntity);
+            $this->mediaService->addVideoEntity($videoEntity);
+        }
+        $this->trickRepository->add($trickEntity, true);
+        return [
+                "trick" => $trickEntity,
+                "message" =>  FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "La figure a été ajouté correctement !")
+            ];
     }
 
 

@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 class Picture
@@ -14,11 +17,15 @@ class Picture
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Url(
+        message: 'The url {{ value }} is not a valid url',
+    )]
     private $Link;
 
-    #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'Picture')]
+    #[ORM\ManyToOne(targetEntity: Trick::class, cascade: ["persist"], inversedBy: 'Picture')]
     #[ORM\JoinColumn(nullable: false)]
     private $trick;
+
 
     public function getId(): ?int
     {

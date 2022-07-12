@@ -14,6 +14,7 @@
         {{form_row(form.category)}}
         <div class="picture-container">
             {{form_row(form.picture)}}
+            <input type="url" id="trick_form_picture_0" name="trick_form[picture][0]" required="required" class="form-control" inputmode="url">
             <div class="picture-slots" id="picture-slots">
 
             </div>
@@ -22,7 +23,8 @@
             <button type="button" class="btn btn-danger mt-3" onclick="deleteLastElement('picture-slots', 'delete-picture-btn', 'picture')" hidden id="delete-picture-btn">Supprimer un emplacement</button>
         </div>
         <div class="video-container">
-            {{form_row(form.video)}}
+            {{ form_row(form.video) }}
+            <input type="url" id="trick_form_video_0" name="trick_form[video][0]" required="required" class="form-control" inputmode="url">
             <div class="picture-slots" id="video-slots">
 
             </div>
@@ -46,7 +48,8 @@
 
             pictureElement.setAttribute('type', 'url');
             pictureElement.setAttribute('required', 'required');
-            pictureElement.name = type+pictureSlotsElement.childElementCount;
+            pictureElement.setAttribute('inputmode', 'url');
+            pictureElement.name = "trick_form["+type+"]["+(pictureSlotsElement.childElementCount+1)+"]";
 
             pictureElement.classList.add("form-control", "mt-3");
 
