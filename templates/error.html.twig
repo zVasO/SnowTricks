@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/trick.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/editTrick.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/error.css') }}" rel="stylesheet"/>
+
+{% endblock %}
+{% block body %}
+    <div class="container d-flex justify-content-center flex-column align-items-center min-vh-100">
+        <div class="center">
+            <h3 class="text-center display-1">Erreur {{ error_code }}</h3>
+            <p class="text-center display-4">Oups ! Une erreur est survenue ! <br>
+                Voici son message : {{ error_message }}</p>
+        </div>
+    </div>
+{% endblock %}
