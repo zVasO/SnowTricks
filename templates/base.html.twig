@@ -53,5 +53,30 @@
                 }
             }
         </script>
+    <script>
+        function showMedias() {
+            let btnElement = document.getElementById("btn-media");
+            let mediaElement = document.getElementById("media");
+            if (mediaElement.classList.contains("d-flex")) {
+                mediaElement.classList.remove("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+                btnElement.innerText = "Voir les medias";
+            } else {
+                mediaElement.classList.add("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+                btnElement.innerText = "Cacher les medias";
+            }
+        }
+        function deletePicture(id) {
+            let choice = confirm("Voulez vous supprimer cette photo ?");
+            if (choice){
+                window.location.href = "/picture/delete/"+id;
+            }
+        }
+        function deleteVideo(id) {
+            let choice = confirm("Voulez vous supprimer cette vidéo ?");
+            if (choice){
+                window.location.href = "/video/delete/"+id;
+            }
+        }
+    </script>
     </body>
 </html>
