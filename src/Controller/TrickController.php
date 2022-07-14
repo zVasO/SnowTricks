@@ -59,7 +59,7 @@ class TrickController extends AbstractController
             $this->addFlash($message["message-type"], $message["message-content"]);
 
             //we redirect to the trick page
-            return $this->redirectToRoute('trick_detail', array('id' => $response['trick']->getId()));
+            return $this->redirectToRoute('app_home');
         }
         return $this->renderForm('trick/create.html.twig', [
             'form' => $form

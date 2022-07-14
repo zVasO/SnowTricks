@@ -1,4 +1,5 @@
 <hr>
+{% if app.user %}
 <div class="trick-form">
     <div class="d-flex gap-3 w-100">
         {{ form_start(form) }}
@@ -7,6 +8,11 @@
         {{ form_end(form) }}
     </div>
 </div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Veuillez vous connectez pour accéder au formulaire. <a href="{{ path('app_login') }}"> Se connecter</a>
+    </div>
+{% endif     %}
 <hr>
 <div class="trick-comments-area mb-5 text-center">
     {% set showLoadBtn = false %}
