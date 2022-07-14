@@ -8,7 +8,7 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <h1 class="text-center">Inscription</h1>
+    <h1 class="text-center">Connexion</h1>
     <div class="container mt-5 d-flex justify-content-center">
         <div class="logForm w-50">
             <form action="{{ path('app_login') }}" method="post" class="d-flex flex-column">
