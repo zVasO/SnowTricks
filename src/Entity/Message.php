@@ -6,6 +6,7 @@ use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Message
 {
     #[ORM\Id]
@@ -19,13 +20,20 @@ class Message
     #[ORM\Column(type: 'datetime_immutable')]
     private $CreatedAt;
 
-    #[ORM\ManyToOne(targetEntity: Trick::class, inversedBy: 'Message')]
+    #[ORM\ManyToOne(targetEntity: Trick::class, cascade: ["persist"], inversedBy: 'Message')]
     #[ORM\JoinColumn(nullable: false)]
     private $trick;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
     private $User;
+
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->CreatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
