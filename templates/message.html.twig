@@ -22,7 +22,7 @@
     {% for key, comment in trick.message %}
         {% if key <= 5 %}
             <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
+                <img src="{{ comment.user.avatar }}" alt="logo-user">
                 <p class="trick-comment text-start" >{{ comment.content }}</p>
             </div>
         {% else %}
