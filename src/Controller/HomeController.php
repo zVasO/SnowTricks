@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'home')]
     public function showHome(TrickService $trickService): Response
     {
         $tricksModels = $trickService->getAllTricks();
