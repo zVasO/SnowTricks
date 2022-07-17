@@ -42,10 +42,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(type: 'string', length: 500)]
+    private $avatar;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->avatar = "https://cdn-icons-png.flaticon.com/512/44/44948.png";
     }
 
     public function getId(): ?int
@@ -206,4 +210,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar(string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
 }
