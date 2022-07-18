@@ -42,8 +42,8 @@ class TrickFormType extends AbstractType
             ])
             ->add('video', CollectionType::class, [
                 // each entry in the array will be an "email" field
-                'entry_type' => UrlType::class,
-                'label' => 'Url de la video embed',
+                'entry_type' => TextType::class,
+                'label' => 'Balise embed de la video',
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

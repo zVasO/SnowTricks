@@ -6,7 +6,7 @@ use App\Entity\Category;
 use App\Exception\TrickException;
 use App\Model\CategoryModel;
 
-interface ICategoryService
+interface CategoryServiceInterface
 {
 
     /**

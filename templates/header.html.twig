@@ -9,6 +9,7 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#tricks-list">Tricks</a></li>
                 {% if app.user %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('trick_create') }}">Ajouter un trick</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
@@ -19,6 +20,7 @@
         <div class="sm-navbar">
             <a href="{{ path('app_home') }}"><i class="fa-solid fa-house-chimney"></i></a>
             {% if app.user %}
+                <a href="{{ path('trick_create') }}"><i class="fa-solid fa-plus"></i></a>
                 <a href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
             {% else %}
                 <a href="{{ path('app_register') }}"><i class="fa-solid fa-bookmark"></i></a>

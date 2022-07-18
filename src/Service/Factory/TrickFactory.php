@@ -4,7 +4,7 @@ namespace App\Service\Factory;
 
 use App\Model\TrickModel;
 
-class TrickFactory implements ITrickFactory
+class TrickFactory implements TrickFactoryInterface
 {
 
     public function __construct()
