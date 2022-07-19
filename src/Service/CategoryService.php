@@ -9,7 +9,7 @@ use App\Repository\CategoryRepository;
 use App\Service\Factory\CategoryFactory;
 use Symfony\Component\HttpFoundation\Response;
 
-class CategoryService implements ICategoryService
+class CategoryService implements CategoryServiceInterface
 {
 
     public function __construct(private CategoryRepository $categoryRepository, private CategoryFactory $categoryFactory)

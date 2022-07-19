@@ -20,7 +20,9 @@
                     <img src="{{ picture.Link }}" alt="Photo n°{{key + 1}} de la figure" width="275" height="200">
                 {% endfor %}
                 {% for video in trick.video %}
-                    <iframe width="275" height="200" src="{{ video.Link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-embed">
+                        {{ video.link|raw }}
+                    </div>
                 {% endfor %}
             </div>
             <button type="button" class="btn btn-outline-success btn-media mt-2" onclick="showMedias()" id="btn-media">Voir les medias</button>

@@ -2,7 +2,7 @@
 
 namespace App\Service\Factory;
 
-interface ICategoryFactory
+interface CategoryFactoryInterface
 {
     /**
      * @param array $categoriesEntities

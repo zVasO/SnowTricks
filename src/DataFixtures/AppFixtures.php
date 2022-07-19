@@ -106,7 +106,7 @@ class AppFixtures extends Fixture
             $trickEntity = new Trick();
 
             $picture = (new Picture())->setTrick($trickEntity)->setLink("https://img.freepik.com/free-vector/beautiful-gradient-spring-landscape_23-2148448598.jpg?w=2000");
-            $video = (new Video())->setLink("https://www.youtube.com/embed/P7vcGR8UjBY")->setTrick($trickEntity);
+            $video = (new Video())->setLink("<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/P7vcGR8UjBY\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>")->setTrick($trickEntity);
             $message = (new Message())->setContent("Je suis un message de test")->setTrick($trickEntity)->setUser($user);
 
             $manager->persist($picture);

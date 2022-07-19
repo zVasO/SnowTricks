@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Assert\Assert;
 
-class TrickService implements ITrickService
+class TrickService implements TrickServiceInterface
 {
 
     public function __construct(private TrickRepository $trickRepository, private TrickFactory $trickFactory, private MediaService $mediaService)

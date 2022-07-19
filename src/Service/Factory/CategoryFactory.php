@@ -4,7 +4,7 @@ namespace App\Service\Factory;
 
 use App\Model\CategoryModel;
 
-class CategoryFactory implements ICategoryFactory
+class CategoryFactory implements CategoryFactoryInterface
 {
 
     public function __construct()

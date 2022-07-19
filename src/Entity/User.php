@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['email'], message: 'Cette email est déja lié a un compte !')]
+#[UniqueEntity(fields: ['username'], message: 'Ce nom d\'utilisateur est déja utilisé ! ')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -42,14 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\Column(type: 'string', length: 500)]
-    private $avatar;
 
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->avatar = "https://cdn-icons-png.flaticon.com/512/44/44948.png";
     }
 
     public function getId(): ?int

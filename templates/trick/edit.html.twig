@@ -34,10 +34,9 @@
                     {% endfor %}
                     {% for video in trick.video %}
                         <div class="video d-flex flex-column">
-                            <iframe width="275" height="200" src="{{ video.Link }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
+                            <div class="video-embed">
+                                {{ video.link|raw }}
+                            </div>
                             <div class="media-actions align-self-end">
                                 <input type="radio" id="media-video-{{ video.id }}" name="media-id" value="video:{{ video.id }}" class="d-none">
                                 <label for="media-video-{{ video.id }}"><i class="fa-solid fa-pencil"></i></label>

@@ -13,13 +13,20 @@
     <div class="container mt-5 d-flex justify-content-center">
         <div class="logForm w-50">
             {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.plainPassword.first, {
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+
+            {{ form_label(registrationForm.username) }}
+            {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+
+            {{ form_label(registrationForm.plainPassword.first) }}
+            {{ form_widget(registrationForm.plainPassword.first, {
                 label: 'Mot de passe',
                 'attr': {'class': 'form-control'}
             }) }}
-            {{ form_row(registrationForm.plainPassword.second, {
+
+            {{ form_label(registrationForm.plainPassword.second) }}
+            {{ form_widget(registrationForm.plainPassword.second, {
                 label: 'Confirmez votre mot de passe',
                 'attr': {'class': 'form-control'}
             }) }}
@@ -27,19 +34,9 @@
             <button type="submit" class="btn btn-outline-success mt-3" >S'enregister</button>
             {% if not registrationForm.vars.valid %}
                 <ul class="alert alert-danger">
-                    {# on affiche en premier les erreurs globales (cas classiques) #}
-                    {% for error in registrationForm.vars.errors %}
-                        <li>{{error.message}}</li>
-                    {% endfor %}
-                    {# ainsi que les erreurs congit cernant chaque champs #}
-                    {% for child in registrationForm.children %}
-                        {# si le champ à des erreur #}
-                        {% if child.vars.errors is defined %}
-                            {% for error in child.vars.errors %}
-                                <li> {{error.message}} </li> {# on ajoute le label du champ devant l'erreur pour plus de précisions. #}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
+                    {{ form_errors(registrationForm.email) }}
+                    {{ form_errors(registrationForm.username) }}
+                    {{ form_errors(registrationForm.plainPassword.first) }}
                 </ul>
             {% endif %}
             {{ form_end(registrationForm) }}

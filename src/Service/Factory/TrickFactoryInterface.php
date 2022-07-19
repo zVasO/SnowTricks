@@ -4,7 +4,7 @@ namespace App\Service\Factory;
 
 use App\Model\TrickModel;
 
-interface ITrickFactory
+interface TrickFactoryInterface
 {
 
     /**

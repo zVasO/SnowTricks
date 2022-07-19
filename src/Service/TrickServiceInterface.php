@@ -11,7 +11,7 @@ use App\Model\TrickModel;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
-interface ITrickService
+interface TrickServiceInterface
 {
     /**
      * @throws Exception
