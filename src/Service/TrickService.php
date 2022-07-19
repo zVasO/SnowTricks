@@ -131,5 +131,14 @@ class TrickService implements TrickServiceInterface
         return $trickEntity;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTrickEntityModelById(int $id): TrickEntityModel
+    {
+        $trickEntity = $this->trickRepository->find($id);
+        return $this->trickFactory->convertTrickModelToTrickEntityModel(new TrickModel($trickEntity));
+    }
+
 
 }

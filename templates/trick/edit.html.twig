@@ -7,40 +7,41 @@
 
 {% endblock %}
 {% block body %}
-    <form action="{{ path('trick_edit_post',{ 'id': trick.id }) }}" method="post">
+    {{ form_start(form) }}
         <div class="container container-border container-trick p-0">
             <div class="trick-img">
-                <img src="{{ trick.picture[0].Link }}" alt="">
-                <h1 class="trick-title">{{ trick.name }}</h1>
+                {% dump(form.description) %}
+                <img src="{{ form.picture[0].vars.value.Link }}" alt="">
+                <h1 class="trick-title">{{ form.vars.value.name }}</h1>
                 <div class="trick-actions">
                     <div class="media-actions align-self-end">
-                        <label for="media-picture-{{ trick.picture[0].id }}"><i class="fa-solid fa-pencil"></i></label>
+                        <label for="{{ form.picture[0].vars..value.id }}"><i class="fa-solid fa-pencil"></i></label>
                         <i class="fa-solid fa-trash-can" onclick="deletePicture({{ trick.picture[0].id }})"></i>
                     </div>
                 </div>
             </div>
             <div class="trick-body-content d-flex flex-column align-items-center mt-3">
                 <div class="trick-media" id="media">
-                    {% for key, picture in trick.picture %}
+                    {% for key, picture in form.picture %}
                         <div class="picture d-flex flex-column">
-                            <img src="{{ picture.Link }}" alt="Photo n°{{ key + 1 }} de la figure" width="275"
+                            <img src="{{ picture.vars.value.Link }}" alt="Photo n°{{ key }} de la figure" width="275"
                                  height="200">
                             <div class="media-actions align-self-end">
-                                <input type="radio" id="media-picture-{{ picture.id }}" name="media-id" value="picture:{{ picture.id }}" class="d-none">
-                                <label for="media-picture-{{ picture.id }}"><i class="fa-solid fa-pencil"></i></label>
-                                <i class="fa-solid fa-trash-can" onclick="deletePicture({{ picture.id }})"></i>
+                                <input type="radio" id="{{ picture.vars.id }}" name="media-id" value="{{ picture.vars.id }}" class="d-none">
+                                <label for="{{ picture.vars.id }}"><i class="fa-solid fa-pencil"></i></label>
+                                <i class="fa-solid fa-trash-can" onclick="deletePicture({{ picture.vars.value.id }})"></i>
                             </div>
                         </div>
                     {% endfor %}
-                    {% for video in trick.video %}
+                    {% for key, video in form.video %}
                         <div class="video d-flex flex-column">
                             <div class="video-embed">
-                                {{ video.link|raw }}
+                                {{ video.vars.value.Link|raw }}
                             </div>
                             <div class="media-actions align-self-end">
-                                <input type="radio" id="media-video-{{ video.id }}" name="media-id" value="video:{{ video.id }}" class="d-none">
-                                <label for="media-video-{{ video.id }}"><i class="fa-solid fa-pencil"></i></label>
-                                <i class="fa-solid fa-trash-can" onclick="deleteVideo({{ video.id }})"></i>
+                                <input type="radio" id="{{ video.vars.id }}" name="media-id" value="{{ video.vars.id }}" class="d-none">
+                                <label for="{{ video.vars.id }}"><i class="fa-solid fa-pencil"></i></label>
+                                <i class="fa-solid fa-trash-can" onclick="deleteVideo({{ video.vars.value.id }})"></i>
                             </div>
                         </div>
                     {% endfor %}
@@ -53,21 +54,14 @@
                 </div>
                 <div class="trick-description text-center mt-4 w-75">
                     <div class="form-floating">
-                        <textarea class="form-control" name="trick-description" placeholder="Leave a comment here"
-                                  id="trick-description" style="height: 100px">{{ trick.description }}</textarea>
-                        <label for="trick-description">Description</label>
+                        {{ form_widget(form.description) }}
+                        {{ form_label(form.description) }}
                     </div>
                 </div>
                 <div class="trick-group w-75 mt-3">
                     <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
-                                name="category">
-                            {% for category in categories %}
-                                <option value="{{ category.id }}"
-                                        {% if category.id == trick.category.id %} selected {% endif %} >{{ category.name }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="floatingSelect">Works with selects</label>
+                        {{ form_widget(form.category) }}
+                        {{ form_label(form.category) }}
                     </div>
                 </div>
                 <div class="trick-validation mb-5 mt-3 me-2 d-flex justify-content-end w-75">
@@ -78,6 +72,6 @@
                 </div>
             </div>
         </div>
-    </form>
+    {{ form_end(form,{'render_rest': false}) }}
 {% endblock %}
 

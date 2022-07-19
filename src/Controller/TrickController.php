@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Video;
 use App\Exception\TrickException;
 use App\Form\CommentType;
+use App\Form\TrickEditFormType;
 use App\Form\TrickFormType;
 use App\Model\MessageEntityModel;
 use App\Model\MessageModel;
@@ -102,39 +103,34 @@ class TrickController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/trick/edit/{id}', name: 'trick_edit_post', methods: ['POST'])]
-    public function updateTrick(Request $request, int $id): Response
-    {
-        Assert::integer($id);
 
-        //We make sure all fields are filled
-        ParameterVerificationService::verifyTrickEditArray($request->request->all());
-        ParameterVerificationService::verifyMedia($request->request->all());
-
-        //We get the category
-        $categoryEntity = $this->categoryService->getCategoryEntityById($request->request->get('category'));
-        //We udpate the selected media
-        $this->mediaService->updateMediaEntity($request->request->get("media-id"), $request->request->get("url-media"));
-        //we update our trick
-        $this->trickService->updateTrickById($id, $request->request->get('trick-description'), $categoryEntity);
-
-        return $this->editTrick($id);
-    }
 
     /**
      * @throws Exception
      */
-    #[Route('/trick/edit/{id}', name: 'trick_edit', methods: ['GET'])]
-    public function editTrick(int $id): Response
+    #[Route('/trick/edit/{id}', name: 'trick_edit')]
+    public function editTrick(int $id, Request $request): Response
     {
         Assert::integer($id);
 
         $trick = $this->trickService->getTrickById($id);
         $categories = $this->categoryService->getAllTricks();
-        return $this->render('trick/edit.html.twig', [
+
+        $trickModel = new TrickEntityModel();
+        $trickEntityModel =$this->trickService->getTrickEntityById($id);
+        $form = $this->createForm(TrickEditFormType::class, $trickEntityModel);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+           dd($form);
+
+        }
+        return $this->renderForm('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
             'trick' => $trick,
-            'categories' => $categories
+            'categories' => $categories,
+            'form' => $form
         ]);
     }
 
