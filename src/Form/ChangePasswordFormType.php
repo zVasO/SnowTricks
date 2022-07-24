@@ -18,7 +18,9 @@ class ChangePasswordFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => ['autocomplete' => 'new-password',
+                            'class' => 'form-control'
+                        ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Veuillez entrer un mot de passe !',
@@ -30,11 +32,12 @@ class ChangePasswordFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
+                    'label' => 'Nouveau mot de passe :',
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Repeat Password',
+                    'attr' => ['autocomplete' => 'new-password',
+                        'class' => 'form-control'],
+                    'label' => 'Confirmez votre nouveau mot de passe',
                 ],
                 'invalid_message' => 'Les mots de passe doivent être identique !',
                 // Instead of being set onto the object directly,
@@ -46,6 +49,8 @@ class ChangePasswordFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults(['attr' => [
+            "class" => "d-flex flex-column gap-3"
+        ]]);
     }
 }
