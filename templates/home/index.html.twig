@@ -17,10 +17,10 @@
                 {% if key == 0 %}
                     <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="tricks-list">
                         {% elseif key is divisible by 8 %}
-                            </div>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-primary" id="{{ key }}" onclick="deleteBlock({{ key }}, 'tricks-list-')">Chargez plus de figures</button>
             </div>
+                    </div>
             <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center d-none" id="tricks-list-{{ key }}">
             {% endif %}
                 <div class="trick-item col mb-5">
@@ -48,16 +48,4 @@
     <div class="d-flex justify-content-end">
         <a class="arrow" href="#header-top"><i class="arrow fa-solid fa-arrow-up fa-3x text-dark"></i></a>
     </div>
-{% endblock %}
-{% block javascripts %}
-    <script>
-        function deleteBlock(key, idBlock)
-        {
-            let elementToShow = document.getElementById(idBlock+key);
-            let elementToDelete = document.getElementById(key)
-            elementToShow.classList.remove('d-none');
-            elementToDelete.parentNode.removeChild(elementToDelete);
-            console.log(elementToShow, key)
-        }
-    </script>
 {% endblock %}
