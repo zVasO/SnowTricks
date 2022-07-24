@@ -15,7 +15,7 @@ class TrickEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('Name', TextType::class, [
                 'label' => 'Nom de la figure :',
                 'empty_data' => '',
                 'attr' => ['class' => 'form-control'],

@@ -16,7 +16,8 @@ class PictureType extends AbstractType
         $builder
             ->add('Link', UrlType::class, [
                 'attr' =>[
-                    'placeholder' => "URL de l'image"
+                    'placeholder' => "URL de l'image",
+                    "class" => "form-control media-control d-none media-content"
                 ]
             ])
         ;

@@ -10,12 +10,11 @@
     {{ form_start(form) }}
         <div class="container container-border container-trick p-0">
             <div class="trick-img">
-                {% dump(form.description) %}
                 <img src="{{ form.picture[0].vars.value.Link }}" alt="">
                 <h1 class="trick-title">{{ form.vars.value.name }}</h1>
                 <div class="trick-actions">
                     <div class="media-actions align-self-end">
-                        <label for="{{ form.picture[0].vars..value.id }}"><i class="fa-solid fa-pencil"></i></label>
+                        <label for="{{ form.picture[0].vars.value.id }}"><i class="fa-solid fa-pencil"></i></label>
                         <i class="fa-solid fa-trash-can" onclick="deletePicture({{ trick.picture[0].id }})"></i>
                     </div>
                 </div>
@@ -27,8 +26,8 @@
                             <img src="{{ picture.vars.value.Link }}" alt="Photo n°{{ key }} de la figure" width="275"
                                  height="200">
                             <div class="media-actions align-self-end">
-                                <input type="radio" id="{{ picture.vars.id }}" name="media-id" value="{{ picture.vars.id }}" class="d-none">
-                                <label for="{{ picture.vars.id }}"><i class="fa-solid fa-pencil"></i></label>
+                                <input type="radio" id="{{ picture.vars.id }}" name="media-id" value="picture_{{ picture.vars.id }}" class="d-none">
+                                <label for="{{ picture.vars.id }}" onclick="showCurrentMedia({{ picture.vars.id }})"><i class="fa-solid fa-pencil"></i></label>
                                 <i class="fa-solid fa-trash-can" onclick="deletePicture({{ picture.vars.value.id }})"></i>
                             </div>
                         </div>
@@ -39,8 +38,8 @@
                                 {{ video.vars.value.Link|raw }}
                             </div>
                             <div class="media-actions align-self-end">
-                                <input type="radio" id="{{ video.vars.id }}" name="media-id" value="{{ video.vars.id }}" class="d-none">
-                                <label for="{{ video.vars.id }}"><i class="fa-solid fa-pencil"></i></label>
+                                <input type="radio" id="{{ video.vars.id }}" name="media-id" value="video_{{ video.vars.id }}" class="d-none">
+                                <label for="{{ video.vars.id }}" onclick="showCurrentMedia({{ video.vars.id }})"><i class="fa-solid fa-pencil"></i></label>
                                 <i class="fa-solid fa-trash-can" onclick="deleteVideo({{ video.vars.value.id }})"></i>
                             </div>
                         </div>
@@ -49,8 +48,14 @@
                 <button type="button" class="btn btn-outline-success btn-media mt-2" onclick="showMedias()"
                         id="btn-media">Voir les medias
                 </button>
-                <div class="form-media w-75 d-flex justify-content-start mb-3 mt-3">
-                    <input type="url" class="form-control media-control" id="media-url" placeholder="Url de votre media" name="url-media">
+                <div class="form-media w-75 d-flex justify-content-start mb-3 mt-3" id="medias-element">
+                    {% dump(form.picture) %}
+                    {% for pictureField in form.picture %}
+                        {{ form_widget(pictureField.Link) }}
+                    {% endfor %}
+                    {% for videoField in form.video %}
+                        {{ form_widget(videoField.Link) }}
+                    {% endfor %}
                 </div>
                 <div class="trick-description text-center mt-4 w-75">
                     <div class="form-floating">
@@ -72,6 +77,24 @@
                 </div>
             </div>
         </div>
-    {{ form_end(form,{'render_rest': false}) }}
+    {{ form_row(form._token) }}
+    <div class="d-none">
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
+{% block javascripts %}
+    <script>
+        function showCurrentMedia(id) {
+            let elementId = id.id+"_Link";
+            let mediasElement = document.getElementById("medias-element");
+            let mediaList = mediasElement.children;
+            let mediaToShow = document.getElementById(elementId);
 
+            for (let item of mediaList) {
+                item.classList.add("d-none");
+            }
+            mediaToShow.classList.remove("d-none");
+
+        }
+    </script>
+{% endblock %}

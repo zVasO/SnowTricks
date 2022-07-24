@@ -116,15 +116,12 @@ class TrickController extends AbstractController
         $trick = $this->trickService->getTrickById($id);
         $categories = $this->categoryService->getAllTricks();
 
-        $trickModel = new TrickEntityModel();
         $trickEntityModel =$this->trickService->getTrickEntityById($id);
         $form = $this->createForm(TrickEditFormType::class, $trickEntityModel);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-           dd($form);
-
+            $trickEntityModel = $form->getData();
         }
         return $this->renderForm('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
