@@ -25,6 +25,5 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-.idea/
 /tools/php-cs-fixer/vendor/
 .gitignore

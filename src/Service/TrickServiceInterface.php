@@ -25,13 +25,6 @@ interface TrickServiceInterface
      */
     public function getAllTricks(): array;
 
-    /**
-     * @param int $id
-     * @param string $description
-     * @param Category $category
-     * @return void
-     */
-    public function updateTrickById(int $id, string $description, Category $category);
 
     /**
      * @param array $trickForm
