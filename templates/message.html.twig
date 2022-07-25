@@ -15,21 +15,22 @@
 {% endif     %}
 <hr>
 <div class="trick-comments-area mb-5 text-center">
-    {% set showLoadBtn = false %}
-    {% if trick.message|length > 5 %}
-        {% set showLoadBtn = true %}
-    {% endif %}
     {% for key, comment in trick.message %}
-        {% if key <= 5 %}
-            <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
-                <p class="trick-comment text-start" >{{ comment.content }}</p>
-            </div>
-        {% else %}
-            {% set array = array|merge(comment) %}
+
+    {% if key == 0 %}
+    <div id="comment-list">
+        {% elseif key is divisible by 8 %}
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" id="{{ key }}" onclick="deleteBlock({{ key }}, 'comments-list-')">Chargez plus de messages</button>
+    </div>
+    </div>
+    <div class="d-none" id="comments-list-{{ key }}">
         {% endif %}
+
+
+        <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
+            <p class="trick-comment text-start" >{{ comment.content }}</p>
+        </div>
     {% endfor %}
-    {% if showLoadBtn == true %}
-        <button type="submit" class="btn btn-primary">Charger plus de figures </button>
-    {% endif %}
 </div>

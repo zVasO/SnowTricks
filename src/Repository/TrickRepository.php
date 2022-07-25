@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Entity\Picture;
 use App\Entity\Trick;
+use App\Entity\Video;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,6 +50,30 @@ class TrickRepository extends ServiceEntityRepository
             $trickEntity->setCategory($category);
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function updateTrickByEntity(Trick $trick, array $mediaUpdated)
+    {
+
+        $baseTrick = $this->find($trick->getId());
+        dump($baseTrick);
+        $baseTrick->setDescription($trick->getDescription())
+            ->setCategory($trick->getCategory());
+
+        if (!empty($mediaUpdated)) {
+            if ($mediaUpdated["type"] === "picture") {
+                $picture = $this->getEntityManager()->getRepository(Picture::class)->find($mediaUpdated["id"]);
+                if ($picture) $this->getEntityManager()->persist($picture->setLink($mediaUpdated["url"]));
+                dd($picture);
+            } else {
+                $video = $this->getEntityManager()->getRepository(Video::class)->find($mediaUpdated["id"]);
+                if ($video) $this->getEntityManager()->persist($video->setLink($mediaUpdated["url"]));
+                dd($video);
+            }
+        }
+        dd($baseTrick);
+        $this->getEntityManager()->persist($baseTrick);
+        $this->getEntityManager()->flush();
     }
 
 

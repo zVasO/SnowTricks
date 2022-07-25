@@ -10,12 +10,12 @@ use Doctrine\Common\Collections\Collection;
 class TrickEntityModel
 {
 
-    public readonly int $id;
+    public int $id;
     public string $name;
     public array $message;
     public string $description;
-    public array $picture;
-    public array $video;
+    public Collection|array $picture;
+    public Collection|array $video;
     public Category $category;
     public DateTimeImmutable $createdAt;
     public DateTimeImmutable $updatedAt;

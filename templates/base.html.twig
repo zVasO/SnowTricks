@@ -78,5 +78,15 @@
             }
         }
     </script>
+    <script>
+        function deleteBlock(key, idBlock)
+        {
+            let elementToShow = document.getElementById(idBlock+key);
+            let elementToDelete = document.getElementById(key)
+            elementToShow.classList.remove('d-none');
+            elementToDelete.parentNode.removeChild(elementToDelete);
+            console.log(elementToShow, key)
+        }
+    </script>
     </body>
 </html>

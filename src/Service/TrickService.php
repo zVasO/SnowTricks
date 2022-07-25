@@ -131,5 +131,24 @@ class TrickService implements TrickServiceInterface
         return $trickEntity;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTrickEntityModelById(int $id): TrickEntityModel
+    {
+        $trickEntity = $this->trickRepository->find($id);
+        return $this->trickFactory->convertTrickModelToTrickEntityModel(new TrickModel($trickEntity));
+    }
+
+    public function updateTrick(Trick $trick, array $mediaUpdated)
+    {
+        if (!empty($mediaUpdated)) {
+            if ($mediaUpdated["url"] === null && $mediaUpdated["id"] === null && $mediaUpdated["type"] === null)
+            {
+                throw new TrickException("Si vous souhaitez editez un media, cliquez sur le bouton d'edit et ajouter l'url dans le champs en dessous !");
+            }
+        }
+        $this->trickRepository->updateTrickByEntity($trick, $mediaUpdated);
+    }
 
 }

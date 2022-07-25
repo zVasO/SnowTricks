@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "332a462549810bc1fd7a1577fe9879b3",
+    "content-hash": "96ce9c486160e8223583a05a202f95f1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4239,17 +4239,82 @@
             "time": "2022-04-12T16:22:53+00:00"
         },
         {
-            "name": "symfony/mailer",
-            "version": "v6.1.1",
+            "name": "symfony/mailchimp-mailer",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/mailer.git",
-                "reference": "db6a19a5c896139901c2de59fc9849379e0ff3b6"
+                "url": "https://github.com/symfony/mailchimp-mailer.git",
+                "reference": "6904ca74662ff3eb60afc3940bafd847d9da576e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/db6a19a5c896139901c2de59fc9849379e0ff3b6",
-                "reference": "db6a19a5c896139901c2de59fc9849379e0ff3b6",
+                "url": "https://api.github.com/repos/symfony/mailchimp-mailer/zipball/6904ca74662ff3eb60afc3940bafd847d9da576e",
+                "reference": "6904ca74662ff3eb60afc3940bafd847d9da576e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/mailer": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "symfony/http-client": "^5.4|^6.0"
+            },
+            "type": "symfony-mailer-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Mailer\\Bridge\\Mailchimp\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Mailchimp Mailer Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/mailchimp-mailer/tree/v6.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-04-01T07:15:35+00:00"
+        },
+        {
+            "name": "symfony/mailer",
+            "version": "v6.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/mailer.git",
+                "reference": "8fa150355115ea09238858ae3cfaf249fd1fd5ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/8fa150355115ea09238858ae3cfaf249fd1fd5ed",
+                "reference": "8fa150355115ea09238858ae3cfaf249fd1fd5ed",
                 "shasum": ""
             },
             "require": {
@@ -4294,7 +4359,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v6.1.1"
+                "source": "https://github.com/symfony/mailer/tree/v6.1.2"
             },
             "funding": [
                 {
@@ -4310,7 +4375,72 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-06T19:15:01+00:00"
+            "time": "2022-06-19T13:21:48+00:00"
+        },
+        {
+            "name": "symfony/mailgun-mailer",
+            "version": "v6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/mailgun-mailer.git",
+                "reference": "44d3c15049d84f5165917a6190f06adbe64d71dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/mailgun-mailer/zipball/44d3c15049d84f5165917a6190f06adbe64d71dd",
+                "reference": "44d3c15049d84f5165917a6190f06adbe64d71dd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/mailer": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "symfony/http-client": "^5.4|^6.0"
+            },
+            "type": "symfony-mailer-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Mailer\\Bridge\\Mailgun\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Mailgun Mailer Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/mailgun-mailer/tree/v6.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-04-01T07:15:35+00:00"
         },
         {
             "name": "symfony/messenger",
@@ -4718,6 +4848,77 @@
                 }
             ],
             "time": "2022-05-11T12:12:29+00:00"
+        },
+        {
+            "name": "symfony/oh-my-smtp-mailer",
+            "version": "v6.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/oh-my-smtp-mailer.git",
+                "reference": "9a8a96e1dfa902683b3a376ff16b60da98570312"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/oh-my-smtp-mailer/zipball/9a8a96e1dfa902683b3a376ff16b60da98570312",
+                "reference": "9a8a96e1dfa902683b3a376ff16b60da98570312",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "psr/event-dispatcher": "^1",
+                "symfony/mailer": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "symfony/http-client": "^5.4|^6.0"
+            },
+            "type": "symfony-mailer-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Mailer\\Bridge\\OhMySmtp\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Paul Oms",
+                    "homepage": "https://ohmysmtp.com"
+                }
+            ],
+            "description": "Symfony OhMySMTP Mailer Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/oh-my-smtp-mailer/tree/v6.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "abandoned": "symfony/mail-pace-mailer",
+            "time": "2022-06-19T13:21:48+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -6083,71 +6284,6 @@
                 }
             ],
             "time": "2022-06-07T22:11:10+00:00"
-        },
-        {
-            "name": "symfony/sendinblue-mailer",
-            "version": "v6.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/sendinblue-mailer.git",
-                "reference": "6a9f4e273a6a41fd5c5756e287ad17fbfa2c77e3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/sendinblue-mailer/zipball/6a9f4e273a6a41fd5c5756e287ad17fbfa2c77e3",
-                "reference": "6a9f4e273a6a41fd5c5756e287ad17fbfa2c77e3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/mailer": "^5.4|^6.0"
-            },
-            "require-dev": {
-                "symfony/http-client": "^5.4|^6.0"
-            },
-            "type": "symfony-mailer-bridge",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Mailer\\Bridge\\Sendinblue\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Sendinblue Mailer Bridge",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/sendinblue-mailer/tree/v6.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-04-12T16:22:53+00:00"
         },
         {
             "name": "symfony/serializer",

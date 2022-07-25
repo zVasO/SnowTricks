@@ -68,4 +68,10 @@ interface TrickServiceInterface
      * @throws TrickException
      */
     public function getTrickEntityById(int $id): Trick;
+
+    /**
+     * @param int $id
+     * @return TrickEntityModel
+     */
+    public function getTrickEntityModelById(int $id): TrickEntityModel;
 }

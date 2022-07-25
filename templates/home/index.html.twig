@@ -13,30 +13,39 @@
     <!-- Section-->
     <section class="page-content py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="tricks-list">
-                {% for trick in tricks %}
-                    <div class="trick-item col mb-5">
-                        <div class="card h-100">
+            {% for key, trick in tricks %}
+                {% if key == 0 %}
+                    <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="tricks-list">
+                        {% elseif key is divisible by 8 %}
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" id="{{ key }}" onclick="deleteBlock({{ key }}, 'tricks-list-')">Chargez plus de figures</button>
+            </div>
+                    </div>
+            <div class="trick-list row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center d-none" id="tricks-list-{{ key }}">
+            {% endif %}
+                <div class="trick-item col mb-5">
+                    <div class="card h-100">
                             <!-- Product image-->
-                            <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="trick-item-body text-center" id="trick-{{ trick.id }}">
-                                    <!-- Product name-->
-                                    <a href="{{ path('trick_detail', { 'id': trick.id }) }}" class="text-decoration-none"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
-                                    {% if app.user %}
-                                    <div class="trick-actions gap-2">
-                                        <a href="{{ path('trick_edit', { 'id': trick.id }) }}" class="text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
-                                        <a href="#trick-{{ trick.id }}" class="text-decoration-none" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')"><i class="fa-solid fa-trash-can"></i></a>
-                                    </div>
-                                    {% endif %}
+                        <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="trick-item-body text-center" id="trick-{{ trick.id }}">
+                                <!-- Product name-->
+                                <a href="{{ path('trick_detail', { 'id': trick.id }) }}" class="text-decoration-none"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
+                                {% if app.user %}
+                                <div class="trick-actions gap-2">
+                                    <a href="{{ path('trick_edit', { 'id': trick.id }) }}" class="text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
+                                    <a href="#trick-{{ trick.id }}" class="text-decoration-none" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')"><i class="fa-solid fa-trash-can"></i></a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
-        <a class="arrow" href="#header-top"><i class="arrow fa-solid fa-arrow-up fa-3x text-dark"></i></a>
     </section>
+    <div class="d-flex justify-content-end">
+        <a class="arrow" href="#header-top"><i class="arrow fa-solid fa-arrow-up fa-3x text-dark"></i></a>
+    </div>
 {% endblock %}
