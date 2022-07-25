@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\Message;
+use DateTimeImmutable;
 
 class MessageEntityModel
 {
