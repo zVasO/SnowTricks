@@ -18,7 +18,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 class TrickFormType extends AbstractType
 {
 
-
     public function __construct()
     {
     }
