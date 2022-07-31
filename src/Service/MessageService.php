@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Model\MessageEntityModel;
 use App\Repository\MessageRepository;
+use App\Service\Factory\MessageFactory;
 use DateTimeImmutable;
 
 class MessageService
@@ -25,6 +26,6 @@ class MessageService
             ->setContent($messageEntityModel->content)
             ->setCreatedAt(new DateTimeImmutable());
         $this->messageRepository->add($messageEntity, true);
-        return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le commentaire a été ajouté !");
+        return MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "Le commentaire a été ajouté !");
     }
 }
