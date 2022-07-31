@@ -11,12 +11,9 @@ use App\Exception\TrickException;
 use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use App\Repository\TrickRepository;
+use App\Service\Factory\MessageFactory;
 use App\Service\Factory\TrickFactory;
-use Exception;
-use Monolog\DateTimeImmutable;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Webmozart\Assert\Assert;
 
 class TrickService implements TrickServiceInterface
 {
@@ -70,7 +67,7 @@ class TrickService implements TrickServiceInterface
     {
         $trickEntity = $this->trickRepository->find($id);
         if ($trickEntity) $this->trickRepository->remove($trickEntity, true);
-        return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été supprimé !");
+        return MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été supprimé !");
     }
 
     /**
@@ -80,7 +77,7 @@ class TrickService implements TrickServiceInterface
     {
         $trick->setUser($user);
         $this->trickRepository->add($trick, true);
-        return FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été ajouté !");
+        return MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "Le trick a correctement été ajouté !");
     }
 
     /**
@@ -108,7 +105,7 @@ class TrickService implements TrickServiceInterface
         $this->trickRepository->add($trickEntity, true);
         return [
                 "trick" => $trickEntity,
-                "message" =>  FlashService::getFlashArray(FlashService::MESSAGE_TYPE_SUCCESS, "La figure a été ajouté correctement !")
+                "message" =>  MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "La figure a été ajouté correctement !")
             ];
     }
 

@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Factory;
 
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-
-class FlashService
+class MessageFactory
 {
     public const MESSAGE_TYPE_PRIMARY = "primary";
     public const MESSAGE_TYPE_SECONDARY = "secondary";

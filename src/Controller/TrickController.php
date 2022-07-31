@@ -2,33 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Picture;
-use App\Entity\Trick;
 use App\Entity\User;
-use App\Entity\Video;
-use App\Exception\TrickException;
 use App\Form\CommentType;
 use App\Form\TrickEditFormType;
 use App\Form\TrickFormType;
 use App\Model\MessageEntityModel;
-use App\Model\MessageModel;
 use App\Model\TrickEntityModel;
-use App\Model\TrickModel;
 use App\Service\CategoryService;
 use App\Service\MediaService;
 use App\Service\MessageService;
-use App\Service\ParameterVerificationService;
 use App\Service\TrickService;
-use DateTimeImmutable;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\Valid;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 class TrickController extends AbstractController
@@ -68,15 +57,12 @@ class TrickController extends AbstractController
     }
 
 
-
     /**
      * @throws Exception
      */
     #[Route('/trick/{id}/', name: 'trick_detail')]
     public function showTrick(int $id, Request $request): Response
     {
-        Assert::integer($id);
-
         $comment = new MessageEntityModel();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -103,20 +89,13 @@ class TrickController extends AbstractController
     /**
      * @throws Exception
      */
-
-
-    /**
-     * @throws Exception
-     */
     #[Route('/trick/edit/{id}', name: 'trick_edit')]
     public function editTrick(int $id, Request $request): Response
     {
-        Assert::integer($id);
-
         $trick = $this->trickService->getTrickById($id);
         $categories = $this->categoryService->getAllTricks();
 
-        $trickEntityModel =$this->trickService->getTrickEntityById($id);
+        $trickEntityModel = $this->trickService->getTrickEntityById($id);
         $form = $this->createForm(TrickEditFormType::class, $trickEntityModel);
 
         $form->handleRequest($request);
@@ -143,5 +122,4 @@ class TrickController extends AbstractController
         if ($message) $this->addFlash($message["message-type"], $message["message-content"]);
         return $this->redirectToRoute('app_home');
     }
-
 }

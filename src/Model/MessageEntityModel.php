@@ -15,7 +15,6 @@ class MessageEntityModel
 
     public function __construct()
     {
-
     }
 
     /**

@@ -23,5 +23,4 @@ class MessageModel
         $this->trick     = new TrickModel($messageEntity->getTrick());
         $this->user      = new UserModel($messageEntity->getUser());
     }
-
 }
