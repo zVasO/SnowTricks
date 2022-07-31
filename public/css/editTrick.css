@@ -1,0 +1,16 @@
+.form-select {
+    width: 240px;
+}
+.picture, .video {
+    font-size: x-large;
+}
+
+.media-control {
+    min-width: 250px;
+    width: 75%;
+}
+@media (max-width: 576px) {
+    .trick-validation{
+        align-self: center;
+    }
+}

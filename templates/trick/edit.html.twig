@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrickController!{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/trick.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/editTrick.css') }}" rel="stylesheet"/>
+
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+        <div class="container container-border container-trick p-0">
+            <div class="trick-img">
+                <img src="{{ form.picture[0].vars.value.Link }}" alt="">
+                <h1 class="trick-title">{{ form.vars.value.name }}</h1>
+                <div class="trick-actions">
+                    <div class="media-actions align-self-end">
+                        <label for="{{ form.picture[0].vars.value.id }}"><i class="fa-solid fa-pencil"></i></label>
+                        <i class="fa-solid fa-trash-can" onclick="deletePicture({{ trick.picture[0].id }})"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="trick-body-content d-flex flex-column align-items-center mt-3">
+                <div class="trick-media" id="media">
+                    {% for key, picture in form.picture %}
+                        <div class="picture d-flex flex-column">
+                            <img src="{{ picture.vars.value.Link }}" alt="Photo n°{{ key }} de la figure" width="275"
+                                 height="200">
+                            <div class="media-actions align-self-end">
+                                <input type="radio" id="{{ picture.vars.id }}" name="media-id" value="picture_{{ picture.vars.id }}" class="d-none">
+                                <label for="{{ picture.vars.id }}" onclick="showCurrentMedia({{ picture.vars.id }})"><i class="fa-solid fa-pencil"></i></label>
+                                <i class="fa-solid fa-trash-can" onclick="deletePicture({{ picture.vars.value.id }})"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for key, video in form.video %}
+                        <div class="video d-flex flex-column">
+                            <div class="video-embed">
+                                {{ video.vars.value.Link|raw }}
+                            </div>
+                            <div class="media-actions align-self-end">
+                                <input type="radio" id="{{ video.vars.id }}" name="media-id" value="video_{{ video.vars.id }}" class="d-none">
+                                <label for="{{ video.vars.id }}" onclick="showCurrentMedia({{ video.vars.id }})"><i class="fa-solid fa-pencil"></i></label>
+                                <i class="fa-solid fa-trash-can" onclick="deleteVideo({{ video.vars.value.id }})"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-outline-success btn-media mt-2" onclick="showMedias()"
+                        id="btn-media">Voir les medias
+                </button>
+                <div class="form-media w-75 d-flex justify-content-start mb-3 mt-3" id="medias-element">
+                    {% dump(form.picture) %}
+                    {% for pictureField in form.picture %}
+                        {{ form_widget(pictureField.Link) }}
+                    {% endfor %}
+                    {% for videoField in form.video %}
+                        {{ form_widget(videoField.Link) }}
+                    {% endfor %}
+                </div>
+                <div class="trick-description text-center mt-4 w-75">
+                    <div class="form-floating">
+                        {{ form_widget(form.description) }}
+                        {{ form_label(form.description) }}
+                    </div>
+                </div>
+                <div class="trick-group w-75 mt-3">
+                    <div class="form-floating">
+                        {{ form_widget(form.category) }}
+                        {{ form_label(form.category) }}
+                    </div>
+                </div>
+                <div class="trick-validation mb-5 mt-3 me-2 d-flex justify-content-end w-75">
+                    <button type="button" class="btn btn-outline-danger" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')">Supprimer</button>
+                    <button type="submit" class="btn btn-outline-success" name="trick-btn-save" value="save">
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
+        </div>
+    {{ form_row(form._token) }}
+    <div class="d-none">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function showCurrentMedia(id) {
+            let elementId = id.id+"_Link";
+            let mediasElement = document.getElementById("medias-element");
+            let mediaList = mediasElement.children;
+            let mediaToShow = document.getElementById(elementId);
+
+            for (let item of mediaList) {
+                item.classList.add("d-none");
+            }
+            mediaToShow.classList.remove("d-none");
+
+        }
+    </script>
+{% endblock %}

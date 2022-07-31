@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SnowTricks - Page de connexion{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/editTrick.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block body %}
+
+    <h1 class="text-center">Connexion</h1>
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="logForm w-50">
+            <form action="{{ path('app_login') }}" method="post" class="d-flex flex-column">
+                <div class="id d-flex flex-column">
+                    <label for="username">Nom d'utilisateur:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+                </div>
+                <br>
+               <div class="password d-flex flex-column">
+                   <label for="password">Mot de passe:</label>
+                   <input type="password" id="password" name="_password" class="form-control"/>
+               </div>
+                <br>
+                <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/>
+                <button type="submit" class="btn btn-outline-success">S'authentifier</button>
+            </form>
+            {% if error %}
+                <div class="alert alert-danger mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

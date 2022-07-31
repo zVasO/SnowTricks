@@ -1,0 +1,36 @@
+<hr>
+{% if app.user %}
+<div class="trick-form">
+    <div class="d-flex gap-3 w-100">
+        {{ form_start(form) }}
+        {{ form_widget(form.Content) }}
+        {{ form_row(form.submit, { 'label': 'Laisser un commentaire'}) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        Veuillez vous connectez pour accéder au formulaire. <a href="{{ path('app_login') }}"> Se connecter</a>
+    </div>
+{% endif     %}
+<hr>
+<div class="trick-comments-area mb-5 text-center">
+    {% for key, comment in trick.message %}
+
+    {% if key == 0 %}
+    <div id="comment-list">
+        {% elseif key is divisible by 8 %}
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" id="{{ key }}" onclick="deleteBlock({{ key }}, 'comments-list-')">Chargez plus de messages</button>
+    </div>
+    </div>
+    <div class="d-none" id="comments-list-{{ key }}">
+        {% endif %}
+
+
+        <div class="trick-comment d-flex flex-row mb-2 gap-3 align-items-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/44/44948.png" alt="logo-user">
+            <p class="trick-comment text-start" >{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+</div>

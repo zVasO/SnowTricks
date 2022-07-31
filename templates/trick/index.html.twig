@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrickController!{% endblock %}
+{% block stylesheets %} <link href="{{ asset('css/trick.css') }}" rel="stylesheet"/> {% endblock %}
+{% block body %}
+    <div class="container container-border container-trick p-0">
+        <div class="trick-img">
+            <img src="{{ trick.picture[0].Link }}" alt="">
+            <h1 class="trick-title">{{ trick.name }}</h1>
+            <div class="trick-actions">
+                {% if app.user %}
+                <a class="azure" href="{{ path('trick_edit', { 'id': trick.id }) }}"><i class="fa-solid fa-pencil"></i></a>
+                <a class="azure" href="#trick-{{ trick.id }}" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')"><i class="fa-solid fa-trash-can"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="trick-body-content d-flex flex-column align-items-center mt-3">
+            <div class="trick-media" id="media">
+                {% for key, picture in trick.picture %}
+                    <img src="{{ picture.Link }}" alt="Photo n°{{key + 1}} de la figure" width="275" height="200">
+                {% endfor %}
+                {% for video in trick.video %}
+                    <div class="video-embed">
+                        {{ video.link|raw }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="btn btn-outline-success btn-media mt-2" onclick="showMedias()" id="btn-media">Voir les medias</button>
+            <div class="trick-description text-center mt-4 w-75">
+                <p>{{ trick.description }}</p>
+            </div>
+            <div class="trick-important-information d-flex flex-row gap-3 flex-wrap justify-content-center">
+                <button type="button" class="btn btn-outline-success">Groupe: {{ trick.category.name }}</button>
+                <button type="button" class="btn btn-outline-success">Crée le : {{ trick.createdAt|date("d/m/Y") }}</button>
+                <button type="button" class="btn btn-outline-success">Modifié le : {{ trick.updatedAt|date("d/m/Y") }}</button>
+            </div>
+            {% include 'message.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+

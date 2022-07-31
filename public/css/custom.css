@@ -1,0 +1,136 @@
+body {
+    font-family: 'Anek Latin', sans-serif;
+}
+hr {
+    width: 75%;
+}
+.azure {
+    color: azure !important;
+}
+.container-border {
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 3px;
+}
+.selected-media {
+    color: green;
+}
+input[type="radio"]:checked+label{
+    color: green;
+}
+
+iframe {
+    width: 275px!important;
+    height: 200px!important;
+}
+
+p.trick-comment {
+    border: solid 1px rgba(0, 0, 0, .5);
+    width: 100%;
+    border-radius: 3px;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.trick-comment img {
+    width: 50px;
+    height: 50px;
+}
+
+.trick-item-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.trick-img img {
+    width: 100%;
+    height: min-content;
+}
+.trick-img h1 {
+    position: absolute;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background: url("../images/backgroud.jpg");
+    background-size: cover;
+}
+
+.header-text {
+    padding-top: 5%;
+}
+
+header h1, header h3 {
+    color: white;
+}
+
+header a .arrow {
+    position: absolute;
+    bottom: 7%;
+    right: 1%;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.arrow {
+    align-self: end;
+    margin-right: 10px;
+}
+
+.arrow-link {
+    width: 36px;
+    height: 100%;
+}
+
+@media (max-width: 1920px) {
+    header {
+        background-position: 60% 0;
+    }
+}
+
+@media (max-width: 991px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar {
+        order: 1;
+        position: fixed;
+        z-index: 10;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .navbar-nav, .navbar-brand, .navbar-toggler {
+        display: none;
+    }
+
+    .sm-navbar {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .sm-navbar {
+        display: none;
+    }
+}
+
+@media (max-width: 555px) {
+    .trick-list {
+        display: flex;
+    }
+
+    .trick-item {
+        flex: 1 1 400px;
+    }
+}
+

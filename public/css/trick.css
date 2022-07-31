@@ -1,0 +1,56 @@
+@media (max-width: 768px) {
+
+    .trick-form, .trick-comments-area {
+        width: 100%!important;
+    }
+    .trick-comment, .trick-form form {
+        margin: 5px;
+    }
+    .btn-media {
+        display: inline;
+    }
+    .trick-media {
+        display: none;
+    }
+    .container-trick {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+}
+@media (min-width: 769px) {
+    .btn-media {
+        display: none;
+    }
+    .container-trick {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+    .trick-form, .trick-comments-area {
+        width: 50%!important;
+    }
+    .trick-media {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         gap: 0.5rem;
+         flex-wrap: wrap;
+     }
+}
+.trick-actions {
+    top: 20px;
+    right: 20px;
+    font-size: x-large;
+}
+.trick-title {
+    top: 45%;
+    width: 100%;
+    text-align: center;
+}
+.trick-title, .trick-actions {
+    color: azure;
+    position: absolute;
+}
+.trick-img {
+    position: relative;
+}

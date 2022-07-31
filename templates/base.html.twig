@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <title>{% block title %}SnowTricks{% endblock %}</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="d-flex flex-column justify-content-between vh-100">
+    <div class="main">
+        {% include 'header.html.twig' %}
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}
+
+        {% endblock %}
+    </div>
+        {% include 'footer.html.twig' %}
+        <!-- Bootstrap core JS-->
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/f1f88b58cd.js" crossorigin="anonymous"></script>
+        <!-- Core theme JS-->
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <script>
+            function deleteTrick(id, name) {
+                let choice = confirm("Voulez vous supprimer le trick :"+ name+ " ?");
+                if (choice){
+                    window.location.href = "/trick/delete/"+id;
+                }
+            }
+        </script>
+    <script>
+        function showMedias() {
+            let btnElement = document.getElementById("btn-media");
+            let mediaElement = document.getElementById("media");
+            if (mediaElement.classList.contains("d-flex")) {
+                mediaElement.classList.remove("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+                btnElement.innerText = "Voir les medias";
+            } else {
+                mediaElement.classList.add("d-flex", "justify-content-center", "flex-row", "gap-3", "flex-wrap");
+                btnElement.innerText = "Cacher les medias";
+            }
+        }
+        function deletePicture(id) {
+            let choice = confirm("Voulez vous supprimer cette photo ?");
+            if (choice){
+                window.location.href = "/picture/delete/"+id;
+            }
+        }
+        function deleteVideo(id) {
+            let choice = confirm("Voulez vous supprimer cette vidéo ?");
+            if (choice){
+                window.location.href = "/video/delete/"+id;
+            }
+        }
+    </script>
+    <script>
+        function deleteBlock(key, idBlock)
+        {
+            let elementToShow = document.getElementById(idBlock+key);
+            let elementToDelete = document.getElementById(key)
+            elementToShow.classList.remove('d-none');
+            elementToDelete.parentNode.removeChild(elementToDelete);
+            console.log(elementToShow, key)
+        }
+    </script>
+    </body>
+</html>
