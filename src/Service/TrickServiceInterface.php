@@ -9,7 +9,6 @@ use App\Exception\TrickException;
 use App\Model\TrickEntityModel;
 use App\Model\TrickModel;
 use Exception;
-use Symfony\Component\HttpFoundation\Request;
 
 interface TrickServiceInterface
 {
@@ -67,4 +66,10 @@ interface TrickServiceInterface
      * @return TrickEntityModel
      */
     public function getTrickEntityModelById(int $id): TrickEntityModel;
+
+    /**
+     * @param Trick $trick
+     * @return void
+     */
+    public function editTrick(Trick $trick): void;
 }

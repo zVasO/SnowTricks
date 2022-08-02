@@ -23,6 +23,9 @@
                 <input type="hidden" name="_target_path" value="{{ path('app_home') }}"/>
                 <button type="submit" class="btn btn-outline-success">S'authentifier</button>
             </form>
+            <div class=text-center  >
+                <a href="{{ path('app_forgot_password_request') }}">J'ai oublié mon mot de passe </a>
+            </div>
             {% if error %}
                 <div class="alert alert-danger mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
