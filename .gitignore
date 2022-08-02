@@ -27,3 +27,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /tools/php-cs-fixer/vendor/
 .gitignore
+.env.local
