@@ -30,11 +30,11 @@ php bin/console doctrine:fixtures:load
 ```
 
 ## Start the project
-Lancer le projet via Symfony
+Start the project with Symfony CLI
 ```php
 symfony server:start
 ```
-Lancer le mailer 
+Start the mailer
 ```php
 php bin/console messenger:consume
 ```
