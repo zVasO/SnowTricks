@@ -49,7 +49,6 @@
                         id="btn-media">Voir les medias
                 </button>
                 <div class="form-media w-75 d-flex justify-content-start mb-3 mt-3" id="medias-element">
-                    {% dump(form.picture) %}
                     {% for pictureField in form.picture %}
                         {{ form_widget(pictureField.Link) }}
                     {% endfor %}
@@ -75,6 +74,12 @@
                         Enregistrer
                     </button>
                 </div>
+                    {% dump(form) %}
+                {% if form.vars.valid == false %}
+                    <div class="alert alert-danger" role="alert">
+                        Une erreur est survenu, vérifiez que votre lien pointe bien vers une photo et une balise embed
+                    </div>
+                {% endif %}
             </div>
         </div>
     {{ form_row(form._token) }}

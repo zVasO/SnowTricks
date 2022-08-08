@@ -20,8 +20,8 @@ class ExceptionListener
         $exception = $event->getThrowable();
         $response = new Response();
         $response->setContent($this->environment->render('error.html.twig', [
-            'error_code' => $exception->getCode(),
-            'error_message' => $exception->getMessage(),
+            'error_code' => "404",
+            'error_message' => "Contenu non disponible",
         ]));
         $event->setResponse($response);
     }

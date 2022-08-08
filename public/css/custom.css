@@ -134,3 +134,6 @@ header a .arrow {
     }
 }
 
+.snow-body {
+    max-height: 80px;
+}

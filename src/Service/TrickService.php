@@ -104,9 +104,9 @@ class TrickService implements TrickServiceInterface
         }
         $this->trickRepository->add($trickEntity, true);
         return [
-                "trick" => $trickEntity,
-                "message" =>  MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "La figure a été ajouté correctement !")
-            ];
+            "trick" => $trickEntity,
+            "message" => MessageFactory::getFlashArray(MessageFactory::MESSAGE_TYPE_SUCCESS, "La figure a été ajouté correctement !")
+        ];
     }
 
     /**
@@ -129,5 +129,36 @@ class TrickService implements TrickServiceInterface
         $trickEntity = $this->trickRepository->find($id);
         return $this->trickFactory->convertTrickModelToTrickEntityModel(new TrickModel($trickEntity));
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function editTrick(Trick $trick): void
+    {
+        $this->trickRepository->editTrick($trick);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getTrickEntityBySlug(string $slug): Trick
+    {
+        $trickEntity = $this->trickRepository->findOneBy(['slug' => $slug]);
+        if (empty($trickEntity)) {
+            throw new TrickException("Le trick ayant pour slug $slug n'existe pas !!", Response::HTTP_NO_CONTENT);
+        }
+        return $trickEntity;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTrickBySlug(string $slug): TrickModel
+    {
+        $trickEntity = $this->getTrickEntityBySlug($slug);
+        return new TrickModel($trickEntity);
+    }
+
 
 }
