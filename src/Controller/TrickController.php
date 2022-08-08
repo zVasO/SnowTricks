@@ -60,8 +60,8 @@ class TrickController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/trick/{id}/', name: 'trick_detail')]
-    public function showTrick(int $id, Request $request): Response
+    #[Route('/trick/{slug}/', name: 'trick_detail')]
+    public function showTrick(string $slug, Request $request): Response
     {
         $comment = new MessageEntityModel();
         $form = $this->createForm(CommentType::class, $comment);
@@ -72,13 +72,13 @@ class TrickController extends AbstractController
             /** @var $user User */
             $user = $this->getUser();
             if (empty($user)) throw new AuthenticationException("Veuillez vous connecter pour ajouter un trick !");
-            $trick = $this->trickService->getTrickEntityById($id);
+            $trick = $this->trickService->getTrickEntityBySlug($slug);
             $comment = $form->getData();
             $this->messageService->addMessageFromMessageEntityModel($comment, $user, $trick);
 
         }
 
-        $trick = $this->trickService->getTrickById($id);
+        $trick = $this->trickService->getTrickBySlug($slug);
         return $this->renderForm('trick/index.html.twig', [
             'controller_name' => 'TrickController',
             'trick' => $trick,
@@ -89,13 +89,13 @@ class TrickController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/trick/edit/{id}', name: 'trick_edit')]
-    public function editTrick(int $id, Request $request): Response
+    #[Route('/trick/edit/{slug}', name: 'trick_edit')]
+    public function editTrick(string $slug, Request $request): Response
     {
-        $trick = $this->trickService->getTrickById($id);
+        $trick = $this->trickService->getTrickBySlug($slug);
         $categories = $this->categoryService->getAllTricks();
 
-        $trickEntityModel = $this->trickService->getTrickEntityById($id);
+        $trickEntityModel = $this->trickService->getTrickEntityBySlug($slug);
         $form = $this->createForm(TrickEditFormType::class, $trickEntityModel);
 
         $form->handleRequest($request);
