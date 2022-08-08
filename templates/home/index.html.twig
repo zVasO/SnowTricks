@@ -26,15 +26,15 @@
                 <div class="trick-item col mb-5">
                     <div class="card h-100">
                             <!-- Product image-->
-                        <a href="{{ path('trick_detail', { 'id': trick.id }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
+                        <a href="{{ path('trick_detail', { 'slug': trick.slug }) }}"><img class="card-img-top" src="{{ trick.picture[0].link }}" alt="..."/></a>
                         <!-- Product details-->
                         <div class="card-body snow-body p-4">
                             <div class="trick-item-body text-center" id="trick-{{ trick.id }}">
                                 <!-- Product name-->
-                                <a href="{{ path('trick_detail', { 'id': trick.id }) }}" class="text-decoration-none"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
+                                <a href="{{ path('trick_detail', { 'slug': trick.slug }) }}" class="text-decoration-none"><h5 class="fw-bolder text-decoration-none">{{ trick.name }}</h5></a>
                                 {% if app.user %}
                                 <div class="trick-actions gap-2">
-                                    <a href="{{ path('trick_edit', { 'id': trick.id }) }}" class="text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
+                                    <a href="{{ path('trick_edit', { 'slug': trick.slug }) }}" class="text-decoration-none"><i class="fa-solid fa-pencil"></i></a>
                                     <a href="#trick-{{ trick.id }}" class="text-decoration-none" onclick="deleteTrick({{ trick.id }}, '{{ trick.name }}')"><i class="fa-solid fa-trash-can"></i></a>
                                 </div>
                                 {% endif %}

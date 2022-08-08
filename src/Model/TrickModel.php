@@ -30,21 +30,23 @@ class TrickModel
     public DateTimeImmutable $createdAt;
     public DateTimeImmutable $updatedAt;
     public UserModel $user;
+    public string $slug;
 
     /**
      * @param Trick $trickEntity
      */
     public function __construct(Trick $trickEntity)
     {
-        $this->id          = $trickEntity->getId();
-        $this->name        = $trickEntity->getName();
-        $this->message     = $trickEntity->getMessage();
+        $this->id = $trickEntity->getId();
+        $this->name = $trickEntity->getName();
+        $this->message = $trickEntity->getMessage();
         $this->description = $trickEntity->getDescription();
-        $this->video       = $trickEntity->getVideo();
-        $this->picture     = $trickEntity->getPicture();
-        $this->category    = $trickEntity->getCategory();
-        $this->createdAt   = $trickEntity->getCreatedAt();
-        $this->updatedAt   = $trickEntity->getUpdatedAt();
-        $this->user        = new UserModel($trickEntity->getUser());
+        $this->video = $trickEntity->getVideo();
+        $this->picture = $trickEntity->getPicture();
+        $this->category = $trickEntity->getCategory();
+        $this->createdAt = $trickEntity->getCreatedAt();
+        $this->updatedAt = $trickEntity->getUpdatedAt();
+        $this->user = new UserModel($trickEntity->getUser());
+        $this->slug = $trickEntity->getSlug();
     }
 }

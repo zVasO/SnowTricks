@@ -72,4 +72,18 @@ interface TrickServiceInterface
      * @return void
      */
     public function editTrick(Trick $trick): void;
+
+    /**
+     * @param string $slug
+     * @return Trick
+     * @throws TrickException
+     */
+    public function getTrickEntityBySlug(string $slug): Trick;
+
+    /**
+     * @param string $slug
+     * @return TrickModel
+     * @throws TrickException
+     */
+    public function getTrickBySlug(string $slug): TrickModel;
 }

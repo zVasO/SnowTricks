@@ -138,4 +138,27 @@ class TrickService implements TrickServiceInterface
         $this->trickRepository->editTrick($trick);
     }
 
+
+    /**
+     * @inheritDoc
+     */
+    public function getTrickEntityBySlug(string $slug): Trick
+    {
+        $trickEntity = $this->trickRepository->findOneBy(['slug' => $slug]);
+        if (empty($trickEntity)) {
+            throw new TrickException("Le trick ayant pour slug $slug n'existe pas !!", Response::HTTP_NO_CONTENT);
+        }
+        return $trickEntity;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTrickBySlug(string $slug): TrickModel
+    {
+        $trickEntity = $this->getTrickEntityBySlug($slug);
+        return new TrickModel($trickEntity);
+    }
+
+
 }
