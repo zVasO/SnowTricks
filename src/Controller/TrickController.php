@@ -9,6 +9,7 @@ use App\Form\TrickFormType;
 use App\Model\MessageEntityModel;
 use App\Model\TrickEntityModel;
 use App\Service\CategoryService;
+use App\Service\FormService;
 use App\Service\MediaService;
 use App\Service\MessageService;
 use App\Service\TrickService;
@@ -27,30 +28,24 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @param Request $request
+     * @param FormService $formService
      * @return Response
      */
     #[Route('/trick/create/', name: 'trick_create')]
-    public function createPageTrick(Request $request): Response
+    public function createPageTrick(Request $request, FormService $formService): Response
     {
         $trick = new TrickEntityModel();
-
         $form = $this->createForm(TrickFormType::class, $trick);
+        /** @var $user User */
+        $user = $this->getUser();
+        $message = $formService->createTrick($form, $request, $user);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+         if ($message !== null) {
+             $this->addFlash($message["message-type"], $message["message-content"]);
+             return $this->redirectToRoute('app_home');
+         }
 
-            /** @var $user User */
-            $user = $this->getUser();
-            if (empty($user)) throw new AuthenticationException("Veuillez vous connecter pour ajouter un trick !");
-
-            $trick = $form->getData();
-            $response = $this->trickService->createTrickEntityFromEntityModel($trick, $user);
-            $message = $response["message"];
-            $this->addFlash($message["message-type"], $message["message-content"]);
-
-            //we redirect to the trick page
-            return $this->redirectToRoute('app_home');
-        }
         return $this->renderForm('trick/create.html.twig', [
             'form' => $form
         ]);
@@ -61,22 +56,14 @@ class TrickController extends AbstractController
      * @throws Exception
      */
     #[Route('/trick/{slug}/', name: 'trick_detail')]
-    public function showTrick(string $slug, Request $request): Response
+    public function showTrick(string $slug, Request $request, FormService $formService): Response
     {
         $comment = new MessageEntityModel();
         $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
+        /** @var $user User */
+        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            /** @var $user User */
-            $user = $this->getUser();
-            if (empty($user)) throw new AuthenticationException("Veuillez vous connecter pour ajouter un trick !");
-            $trick = $this->trickService->getTrickEntityBySlug($slug);
-            $comment = $form->getData();
-            $this->messageService->addMessageFromMessageEntityModel($comment, $user, $trick);
-
-        }
+        $formService->addMessage($form, $slug, $request, $user);
 
         $trick = $this->trickService->getTrickBySlug($slug);
         return $this->renderForm('trick/index.html.twig', [
@@ -90,19 +77,15 @@ class TrickController extends AbstractController
      * @throws Exception
      */
     #[Route('/trick/edit/{slug}', name: 'trick_edit')]
-    public function editTrick(string $slug, Request $request): Response
+    public function editTrick(string $slug, Request $request, FormService $formService): Response
     {
         $trick = $this->trickService->getTrickBySlug($slug);
         $categories = $this->categoryService->getAllTricks();
 
         $trickEntityModel = $this->trickService->getTrickEntityBySlug($slug);
         $form = $this->createForm(TrickEditFormType::class, $trickEntityModel);
+        $formService->updateTrick($request, $form);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $trickEntityModel = $form->getData();
-            $this->trickService->editTrick($trickEntityModel);
-        }
         return $this->renderForm('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
             'trick' => $trick,
