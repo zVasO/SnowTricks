@@ -39,7 +39,7 @@ class FormService
      * @return void
      * @throws TrickException
      */
-    public function addMessage(FormInterface $form, string $slug, Request $request, User $user): void
+    public function addMessage(FormInterface $form, string $slug, Request $request, ?User $user): void
     {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
